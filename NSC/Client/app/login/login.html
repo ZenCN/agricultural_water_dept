@@ -1,0 +1,49 @@
+﻿<div class="login-main">
+    <div class="top">
+        <ul>
+            <li>
+                <label>省&nbsp;&nbsp;级：</label>
+                <label>{{province.name}}</label>
+            </li>
+            <li>
+                <label>市&nbsp;&nbsp;级：</label>
+                <select ng-model="city.code" ng-change="selected.change('city')"
+                        ng-options="unit.code as unit.name for unit in city.data">
+                    <option value="">———————</option>
+                </select>
+            </li>
+            <li>
+                <label>县&nbsp;&nbsp;级：</label>
+                <select ng-model="county.code" ng-change="selected.change('county')"
+                        ng-options="unit.code as unit.name for unit in county.data">
+                    <option value="">———————</option>
+                </select>
+            </li>
+            <li>
+                <label>密&nbsp;&nbsp;码：</label>
+                <input oncontextmenu="return false" type="password" ng-model="password" disable-key="space"/>
+            </li>
+            <li class="error">
+                <p></p>
+            </li>
+            <li class="login">
+                <a href="javascript:void(0);">
+                    <input id="login" type="button" ng-click="validate()"/>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="login-footer">
+    <div class="top">
+        <a href="#">
+            <span></span> 下载用户手册
+        </a>
+    </div>
+    <div class="bottom">
+        <p>技术支持：<a href="http://www.zizo.com.cn/">长沙至卓信息科技有限公司</a></p>
+        <p>为了获得更好的浏览效果，建议您使用
+            <a href="http://down.360safe.com/se/360se8.1.1.240.exe" title="点击下载安装">360安全浏览器（极速模式）</a>
+        </p>
+    </div>
+</div>

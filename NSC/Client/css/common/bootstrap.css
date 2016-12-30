@@ -1,0 +1,38 @@
+body {
+    font-family: Microsoft YaHei, '宋体', Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f0f0f0;
+    background-image: url(../../image/common/black_bg.png);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    font-size: 14px;
+    overflow: hidden;
+}
+
+table {
+    text-align: center;
+}
+
+th {
+    text-align: center;
+}
+
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.glyphicon.td {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.glyphicon.td:hover {
+    color: #337ab7;
+}
+
+a {
+    cursor: pointer;
+}

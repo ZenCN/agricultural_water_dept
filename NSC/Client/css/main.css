@@ -1,0 +1,60 @@
+.sys-opt {
+    position: absolute;
+    top: 88px;
+    right: 5px;
+    bottom: 5px;
+    left: 5px;
+    background-image: url(../image/main/main_bg.jpg);
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: #f0f0f0;
+    border-radius: 7px;
+}
+
+.sys-opt .sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    background-color: transparent;
+}
+
+.sys-opt .sidebar .sidebar-nav {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    filter: alpha(opacity=75);
+    -moz-opacity: 0.75;
+    opacity: 0.75;
+    background-image: linear-gradient(to right, #0B3850 10px, #01273C 10px);
+}
+
+.sys-opt .sidebar .sidebar-nav ul a {
+    color: #74AECE;
+}
+
+.sys-opt .sidebar .sidebar-nav ul a:hover {
+    color: #f0f0f0;
+}
+
+.sys-opt .sidebar .sidebar-nav ul li.actived a {
+    color: #f0f0f0;
+    background-image: linear-gradient(to right, #607E9E 10px, #26688D 10px);
+}
+
+.sys-opt .content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 230px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.sys-opt .content .panel{
+    height: 100%;
+    filter: alpha(opacity=85);
+    -moz-opacity: 0.85;
+    opacity: 0.85;
+}

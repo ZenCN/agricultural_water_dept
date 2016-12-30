@@ -1,0 +1,64 @@
+﻿<div class="row" style="margin-bottom: 20px;">
+    <div class="col-xs-4" ng-if="user.level == 2">
+        <input name="files" type="file" class="file" multiple data-show-preview="false" multiple-upload/>
+    </div>
+    <div class="col-xs-2 =" ng-class="{'col-xs-offset-2': user.level > 2}">
+        <div class="input-group">
+            <span class="input-group-addon">年度</span>
+            <select class="form-control" ng-model="year.selected">
+                <option ng-repeat="y in year.data()" ng-selected="year.selected == y" value="{{y}}">{{y}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div class="input-group">
+            <span class="input-group-addon">文件名</span>
+            <input type="text" ng-model="file_name" class="form-control" typeahead-on-select="file_name_selecting($item)"
+                 typeahead-loading="loadingLocations" typeahead="_this for _this in get_file_names($viewValue)"/>
+            <i ng-show="loadingLocations" class="input-group-addon glyphicon glyphicon-refresh"></i>
+            <div ng-show="no_results" class="input-group-addon">
+                <i class="glyphicon glyphicon-remove"></i> 没有找到
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-2">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" ng-click="search()">
+                搜索
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr role="row">
+                <th style="width: 53px;">
+
+                </th>
+                <th colspan="3">
+                    文件名
+                </th>
+                <th style="width: 136px;">
+                    上传时间
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="file in search.result">
+                <td>
+                    <i class="glyphicon td glyphicon-eye-open" title="预览" ng-click="preview()"></i>
+                    <i class="glyphicon td glyphicon-remove" title="删除" ng-if="user.level == 2" ng-click="remove(file.D01)" style="margin-left: 3px;"></i>
+                </td>
+                <td colspan="3" align="left">
+                    <a title="{{file.D02}}" ng-click="download(file.D01)">{{file.D02}}</a>
+                </td>
+                <td>
+                    {{file.D03}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

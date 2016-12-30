@@ -1,0 +1,159 @@
+﻿<div class="row" style="margin-bottom: 20px;">
+    <div class="col-xs-2 text-right" ng-if="user.level == 4">
+        <button type="button" class="btn btn-primary" acceptance-material="add">
+            新增
+        </button>
+    </div>
+    <div class="col-xs-2">
+        <div class="input-group">
+            <span class="input-group-addon">市级</span>
+            <select class="form-control" ng-model="city.code">
+                <option ng-repeat="city in city.data" ng-selected="city.code == city.code" value="{{city.code}}">
+                    {{city.code.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-2">
+        <div class="input-group">
+            <span class="input-group-addon">县级</span>
+            <select class="form-control" ng-model="county.code">
+                <option ng-repeat="county in county.data" ng-selected="county.code == city.code" value="{{county.code}}">
+                    {{city.code.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-3">
+        <div class="input-group">
+            <span class="input-group-addon">水利站</span>
+            <input type="text" ng-model="conservancy_station" class="form-control" typeahead-on-select="station_selecting($item)"
+                 typeahead-loading="loadingLocations" typeahead="_this for _this in get_stations($viewValue)"/>
+            <i ng-show="loadingLocations" class="input-group-addon glyphicon glyphicon-refresh"></i>
+            <div ng-show="no_results" class="input-group-addon">
+                <i class="glyphicon glyphicon-remove"></i> 没有找到
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-2">
+        <button type="button" class="btn btn-primary" ng-click="search()">
+            搜索
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr role="row">
+                <th>
+
+                </th>
+                <th>
+                    状态
+                </th>
+                <th>
+                    市级
+                </th>
+                <th>
+                    县级
+                </th>
+                <th>
+                    水利站
+                </th>
+                <th>
+                    验收报告
+                </th>
+                <th>
+                    申报资料
+                </th>
+                <th>
+                    验收卡
+                </th>
+                <th>
+                    上报日期
+                </th>
+                <th>
+                    备注
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr><!--ng-repeat="file in search.result"-->
+                <td>
+                    <div class="btn-group btn-group-xs">
+                        <button type="button" class="btn btn-primary">修改</button>
+                        <button type="button" class="btn btn-success">报送</button><!--县级保存后显示 1 或 市级退回后 2-->
+                        <button type="button" class="btn btn-success">退回</button><!--县级报送后显示 3-->
+                    </div>
+                    <div class="btn-group btn-group-xs">
+                        <button type="button" class="btn btn-primary">删除</button><!--县级保存后显示 1 或 市级退回后 2-->
+                        <button type="button" class="btn btn-success">备案</button><!--县级报送后显示 3-->
+                        <button type="button" class="btn btn-success">预览</button>
+                    </div>
+                </td>
+                <td>状态</td>
+                <td>市级</td>
+                <td>县级</td>
+                <td>水利站</td>
+                <td>
+                    <a>验收报告</a>
+                </td>
+                <td>
+                    <a>申报资料</a>
+                </td>
+                <td>
+                    <a>验收卡</a>
+                </td>
+                <td>上报日期</td>
+                <td>备注</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="acceptance_material" style="display: none">
+    <table style="margin: 0 auto; width: 320px;">
+        <tr>
+            <td class="text-right">市级：</td>
+            <td style="padding: 2px 0;">XXX市</td>
+        </tr>
+        <tr>
+            <td class="text-right">县级：</td>
+            <td style="padding: 2px 0;">XXX县</td>
+        </tr>
+        <tr>
+            <td class="text-right">水利站：</td>
+            <td style="padding: 2px 0;">
+                <input type="text" class="form-control"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width: 66px;">验收报告：</td>
+            <td style="padding: 2px 0;">
+                <input name="yanshoubaogao" type="file" class="file" data-show-preview="false"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right">申报资料：</td>
+            <td style="padding: 2px 0;">
+                <input name="shenbao" type="file" class="file" data-show-preview="false"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right">验收卡：</td>
+            <td style="padding: 2px 0;">
+                <input name="yanshouka" type="file" class="file" data-show-preview="false"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right">备注：</td>
+            <td style="padding: 2px 0;">
+                <textarea class="form-control" style="max-width: 254px"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" name="error" style="color: Red; text-align: center; font-weight: bolder;"></td>
+        </tr>
+    </table>
+</div>

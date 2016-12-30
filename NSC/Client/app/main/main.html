@@ -1,0 +1,54 @@
+﻿<div class="sys-opt">
+    <div class="sidebar">
+        <div class="sidebar-nav">
+            <ul metis-menu class="metismenu" id="menu">
+                <li class="active">
+                    <a class="has-arrow" href="javascript:void(0)" aria-expanded="true">标准化建设任务完成情况</a>
+                    <ul class="animated bounceIn" aria-expanded="true">
+                        <li ng-click="state.go('normative_docs')" ng-class="{actived: state.current.value == 'normative_docs'}">
+                            <a href="javascript:void(0)">规范性文件</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">实施方案与批复</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">报表上报</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">销号查询</a>
+                        </li>
+                        <li ng-click="state.go('acceptance_material')" ng-class="{actived: state.current.value == 'acceptance_material'}">
+                            <a href="javascript:void(0)">验收资料</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="active">
+                    <a class="has-arrow" href="javascript:void(0)" aria-expanded="true">农民用水合作组织示范创建</a>
+                    <ul class="animated bounceIn" aria-expanded="true">
+                        <li ng-click="state.go('application_materials')" ng-class="{actived: state.current.value == 'application_materials'}">
+                            <a href="javascript:void(0)">申报资料</a>
+                        </li>
+                        <li ng-click="state.go('demonstration_org')" ng-class="{actived: state.current.value == 'demonstration_org'}">
+                            <a href="javascript:void(0)">示范组织名单及批复文件</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)">实施情况建设成效成果展示</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content" ng-hide="state.current.value == 'main'">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <i class="glyphicon glyphicon-map-marker"></i> 当前位置：{{state.current.name}}
+                </h3>
+            </div>
+            <div class="panel-body" ui-view>
+
+            </div>
+        </div>
+    </div>
+</div>

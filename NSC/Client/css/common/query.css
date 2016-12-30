@@ -1,0 +1,18 @@
+.query {
+    background-color: #fff;
+    position: absolute;
+    top: 117px;
+    right: 5px;
+    bottom: 5px;
+    left: 5px;
+    border-radius: 5px;
+    padding: 0 10px 5px 10px;
+}
+
+.query .row{
+    margin-top: 15px;
+}
+
+.query table{
+    text-align: center;
+}
