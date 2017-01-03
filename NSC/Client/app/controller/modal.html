@@ -1,0 +1,58 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">{{modal.title}}</h3>
+</div>
+<div class="modal-body">
+    <table style="margin: 0 auto; width: 500px;">
+        <tr>
+            <td class="text-right">市级：</td>
+            <td style="padding: 2px 0;">
+                <label>{{modal.city_name}}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right">县级：</td>
+            <td style="padding: 2px 0;">
+                <label>{{modal.county_name}}</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right">水利站：</td>
+            <td style="padding: 2px 0;">
+                <input type="text" class="form-control" ng-model="modal.station_name"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right" style="width: 71px;">验收报告：</td>
+            <td style="padding: 2px 0;">
+                <input name="yanshoubaogao" type="file" class="file" data-show-preview="false" sing-upload/>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right">申报资料：</td>
+            <td style="padding: 2px 0;">
+                <input name="shenbao" type="file" class="file" data-show-preview="false" sing-upload/>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right">验收卡：</td>
+            <td style="padding: 2px 0;">
+                <input name="yanshouka" type="file" class="file" data-show-preview="false" sing-upload/>
+            </td>
+        </tr>
+        <tr>
+            <td class="text-right">备注：</td>
+            <td style="padding: 2px 0;">
+                <textarea class="form-control" style="max-width: 429px" ng-model="modal.remark"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="color: red; text-align: center; font-weight: bolder;">
+                {{modal.error}}
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="save()">保存</button>
+    <button class="btn btn-warning" ng-click="cancel()">取消</button>
+</div>

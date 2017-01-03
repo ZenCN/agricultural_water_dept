@@ -87,7 +87,8 @@
                     'client/bower_component/bootstrap-fileinput/css/fileinput.min.css',
                     'client/app/acceptance_material/acceptance_material_ctrl.js',
                     'client/app/service/acceptance_material_svr.js',
-                    'client/app/directive/acceptance_material.js',
+                    'client/app/controller/modal_ctrl.js',
+                    'client/app/directive/sing_upload.js',
                     'client/bower_component/bootstrap-fileinput/js/fileinput.min.js'
                 ])
             })

@@ -7,34 +7,34 @@
 
     datepicker_ctrl.$inject = ['$scope', 'datepickerPopupConfig'];
 
-    function datepicker_ctrl($scope, datepickerPopupConfig) {
+    function datepicker_ctrl(vm, datepickerPopupConfig) {
         datepickerPopupConfig.appendToBody = true;  //append the body tag
 
-        $scope.format = 'yyyy年MM月dd日';
+        vm.format = 'yyyy年MM月dd日';
 
-        $scope.today = function () {
-            $scope.dt = new Date();
+        vm.today = function () {
+            vm.dt = new Date();
         };
-        $scope.today();
+        vm.today();
 
-        $scope.clear = function () {
-            $scope.dt = null;
+        vm.clear = function () {
+            vm.dt = null;
         };
 
-        $scope.minDate = $scope.dt.getFullYear() - 1 + '-01-01';
-        $scope.maxDate = '2025-12-31';
+        vm.minDate = vm.dt.getFullYear() - 1 + '-01-01';
+        vm.maxDate = '2025-12-31';
 
-        $scope.dateOptions = {
+        vm.dateOptions = {
             formatYear: 'yy',
             startingDay: 1
         };
 
         //Disable weekend selection
-        $scope.disabled = function (date, mode) {
+        vm.disabled = function (date, mode) {
             return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
         };
 
-        $scope.open = function ($event) {
+        vm.open = function ($event) {
             $event.preventDefault();
             $event.stopPropagation();
 

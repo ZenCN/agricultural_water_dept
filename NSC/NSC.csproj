@@ -184,7 +184,9 @@
     <Content Include="Client\app\app.config.js" />
     <Content Include="Client\app\app.module.js" />
     <Content Include="Client\app\controller\datepicker_ctrl.js" />
-    <Content Include="Client\app\directive\acceptance_material.js" />
+    <Content Include="Client\app\controller\modal.html" />
+    <Content Include="Client\app\controller\modal_ctrl.js" />
+    <Content Include="Client\app\directive\sing_upload.js" />
     <Content Include="Client\app\directive\metis_menu.js" />
     <Content Include="Client\app\directive\update_pwd.js" />
     <Content Include="Client\app\directive\multiple_upload.js" />
@@ -302,10 +304,8 @@
     <Content Include="Client\bower_component\angular-ocLazyLoad\ocLazyLoad.require.min.js" />
     <Content Include="Client\bower_component\angular-ui\angular-ui-router.js" />
     <Content Include="Client\bower_component\angular-ui\angular-ui-router.min.js" />
-    <Content Include="Client\bower_component\angular-ui\ui-bootstrap-custom-0.12.1.js" />
-    <Content Include="Client\bower_component\angular-ui\ui-bootstrap-custom-0.12.1.min.js" />
-    <Content Include="Client\bower_component\angular-ui\ui-bootstrap-custom-tpls-0.12.1.js" />
-    <Content Include="Client\bower_component\angular-ui\ui-bootstrap-custom-tpls-0.12.1.min.js" />
+    <Content Include="Client\bower_component\angular-ui\ui-bootstrap-tpls.js" />
+    <Content Include="Client\bower_component\angular-ui\ui-bootstrap-tpls.min.js" />
     <Content Include="Client\bower_component\angular\angular-locale_zh-cn.js" />
     <Content Include="Client\bower_component\angular\angular.js" />
     <Content Include="Client\bower_component\angular\angular.min.js" />
