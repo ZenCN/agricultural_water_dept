@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Microsoft.Office.Interop.Excel;
 using System.Diagnostics;
 using System.IO;
-using Microsoft.Office.Interop.Word;
 using NSC;
 namespace Suya.Web.Apps.Areas.PMP.Controllers
 {
@@ -34,7 +33,7 @@ namespace Suya.Web.Apps.Areas.PMP.Controllers
                     break;
                 case ".doc":
                 case ".docx":
-                    htmlUrl = PreviewWord(physicalPath);
+                    //htmlUrl = PreviewWord(physicalPath);
                     break;
                 case ".txt":
                     htmlUrl = PreviewTxt(physicalPath);
@@ -76,7 +75,7 @@ namespace Suya.Web.Apps.Areas.PMP.Controllers
         /// <summary>
         /// 预览Word
         /// </summary>
-        public string PreviewWord(string physicalPath)
+        /*public string PreviewWord(string physicalPath)
         {
             Microsoft.Office.Interop.Word._Application application = null;
             Microsoft.Office.Interop.Word._Document document = null;
@@ -96,7 +95,7 @@ namespace Suya.Web.Apps.Areas.PMP.Controllers
             document.Close();
             application.Quit();
             return htmlName;
-        }
+        }*/
         #endregion
         #region 预览Txt
         /// <summary>
