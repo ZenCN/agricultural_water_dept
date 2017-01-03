@@ -28,6 +28,7 @@
                         language: "zh",
                         uploadUrl: 'dt01/upload',
                         showRemove: false,
+                        sgowUpload: false,
                         uploadAsync: false,
                         layoutTemplates: {
                             btnBrowse: '<div tabindex="500" class="{css}"{status}>{icon}</div>',

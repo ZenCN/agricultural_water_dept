@@ -387,6 +387,7 @@
     <Content Include="DLL\ICSharpCode.SharpZipLib.dll" />
     <Content Include="DLL\Zip.dll" />
     <Content Include="favicon.ico" />
+    <Content Include="git_helper.txt" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -401,7 +402,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Temp\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
