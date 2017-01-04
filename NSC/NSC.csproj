@@ -590,6 +590,7 @@
     <None Include="Client\bower_component\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Client\bower_component\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Client\bower_component\jquery-metis-menu\metisMenu.js.map" />
+    <None Include="周报-张建军.xls" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Web\DT03Controller.cs" />
