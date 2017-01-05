@@ -65,13 +65,13 @@
           <Property Name="DD2" Type="varchar" MaxLength="40" />
           <Property Name="D02" Type="int" />
           <Property Name="D03" Type="datetime" />
-          <Property Name="D04" Type="varchar" MaxLength="50" />
-          <Property Name="D05" Type="varchar" MaxLength="50" />
-          <Property Name="D06" Type="varchar" MaxLength="50" />
-          <Property Name="D07" Type="varchar" MaxLength="50" />
-          <Property Name="D08" Type="varchar" MaxLength="50" />
-          <Property Name="D09" Type="varchar" MaxLength="50" />
-          <Property Name="D10" Type="varchar" MaxLength="200" />
+          <Property Name="D04" Type="varchar" MaxLength="100" />
+          <Property Name="D05" Type="varchar" MaxLength="100" />
+          <Property Name="D06" Type="varchar" MaxLength="100" />
+          <Property Name="D07" Type="varchar" MaxLength="300" />
+          <Property Name="D08" Type="varchar" MaxLength="300" />
+          <Property Name="D09" Type="varchar" MaxLength="300" />
+          <Property Name="D10" Type="varchar" MaxLength="300" />
           <Property Name="D99" Type="tinyint" Nullable="false" />
           <Property Name="DD3" Type="varchar" MaxLength="30" />
           <Property Name="DD4" Type="varchar" MaxLength="30" />
@@ -270,13 +270,13 @@
           <Property Type="String" Name="DD2" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="D02" />
           <Property Type="DateTime" Name="D03" />
-          <Property Type="String" Name="D04" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="D05" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="D06" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="D07" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="D08" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="D09" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="D10" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="D04" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="D05" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="D06" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="D07" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="D08" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="D09" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="D10" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Type="Byte" Name="D99" Nullable="false" />
           <Property Type="String" Name="DD3" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="DD4" MaxLength="30" FixedLength="false" Unicode="false" />
@@ -423,7 +423,7 @@
           <ConnectorPoint PointX="6.875" PointY="2.485433756510421" />
           <ConnectorPoint PointX="6.875" PointY="3.625" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="NSCModel.DT04" Width="1.5" PointX="3.125" PointY="3.75" Height="3.7681689453124996" />
+        <EntityTypeShape EntityType="NSCModel.DT04" Width="1.5" PointX="3" PointY="3.75" Height="3.7681689453124996" />
       </Diagram>
     </Diagrams>
   </Designer>

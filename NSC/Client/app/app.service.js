@@ -19,10 +19,14 @@
             return $http(config)
                 .then(complete)
                 .catch(function(error) {
-                    if (error.data) {
-                        msg(error.data, 5000);
+                    if (angular.isObject(error)) {
+                        if (error.data) {
+                            throw msg(error.data, 5000);
+                        } else {
+                            throw msg('service：' + error.config.url + '请求出错' + '，状态：' + error.status + ' ' + error.statusText);
+                        }
                     } else {
-                        alert('service：' + error.config.url + '请求出错' + '，状态：' + error.status + ' ' + error.statusText);
+                        throw msg(error.data, 5000);
                     }
                 });
         };

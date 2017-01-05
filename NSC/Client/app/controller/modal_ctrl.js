@@ -17,6 +17,7 @@
                 title: type + '验收资料',
                 city_name: $.cookie('city_name'),
                 county_name: vm.user.name,
+                county_code: vm.user.code,
                 station_name: undefined,
                 remark: undefined,
                 error: undefined
@@ -60,11 +61,7 @@
                 (function all_uploaded() {
                     if (md5.acceptance_report.uploaded == md5.acceptance_data.uploaded == md5.acceptance_card.uploaded == true) {
 
-                        acceptance_material_svr.save($.extend(vm.modal, {
-                            acceptance_report: md5.acceptance_report,
-                            acceptance_data: md5.acceptance_data,
-                            acceptance_card: md5.acceptance_card
-                        }), function (response) {
+                        acceptance_material_svr.save(vm.modal, function(response) {
                             if (response.data > 0) {
                                 delete md5.acceptance_report;
                                 delete md5.acceptance_data;
@@ -72,6 +69,8 @@
 
                                 msg('保存成功!');
                                 $modalInstance.close();
+                            } else {
+                                throw msg(response.data);
                             }
                         });
 

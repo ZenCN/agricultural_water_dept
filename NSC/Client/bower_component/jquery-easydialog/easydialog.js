@@ -820,6 +820,8 @@ window.msg = function(text, time) { //消息通知
         lock: true,
         msg: true  //弹出框是否为msg类型
     });
+
+    return text;  //for throw exception
 };
 
 // 2012-04-12 修复跟随定位缩放浏览器时无法继续跟随的BUG

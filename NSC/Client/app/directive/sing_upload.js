@@ -12,7 +12,7 @@
             $(function() {
                 $element.fileinput({
                     language: "zh",
-                    uploadUrl: 'dt01/upload',
+                    uploadUrl: 'dt04/upload',
                     showRemove: false,
                     showUpload: false,
                     uploadAsync: false,
@@ -21,10 +21,7 @@
                         caption: '<div class="form-control file-caption {class}">' +
                             '<div style="width:358px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" class="file-caption-name"></div>' +
                             '</div>'
-                    },
-                    uploadExtraData: function() { //uploadExtraData must be an object or function
-                        return { md5: md5[$attr.id] };
-                    },
+                    }
                 }).on('filebatchselected', function(event, files) {
                     if (files.length > 0) {
                         var reader = new FileReader();
@@ -56,10 +53,13 @@
                         reader.readAsArrayBuffer(files.the_first());
                     }
                 }).on('filebatchuploadsuccess', function(event, data) {
-                    md5[reader.id] = {
-                        value: data.response,
-                        uploaded: true
-                    };
+                    md5[$attr.id] = JSON.parse(data.response);
+
+                    if (angular.isObject(md5[$attr.id])) {
+                        md5[$attr.id].uploaded = true;
+                    } else {
+                        throw msg(data.response);
+                    }
                 });
             });
         }

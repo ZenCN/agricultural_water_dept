@@ -5,8 +5,10 @@ using System.Web;
 using Dynashety.Plug;
 using ElegantWM.Tools;
 using System.IO;
+using System.Web.Helpers;
 using Dynashety;
 using Dynashety.DYAttribute;
+using Newtonsoft.Json;
 
 namespace NSC.DYCode
 {
@@ -52,7 +54,9 @@ namespace NSC.DYCode
 
                         db.SaveChanges();
 
-                        msg = sx04.MD5;
+                        trans.Commit();
+
+                        return JsonConvert.SerializeObject(new {file_name = file.FileName, file_path = sx04.FILEPATH});
                     }
                     catch (Exception ex)
                     {
