@@ -1,4 +1,9 @@
-﻿//----------------------date----------------------
+﻿//----------------------window--------------------
+window.isString = function(str) {
+    return typeof str == 'string' && str.trim().length > 0
+};
+
+//----------------------date----------------------
 Date.prototype.get_day = function (d) {  //default today(undefined)、oneday: -7 7、lastday 0
     var date = new Date();  //default today
 

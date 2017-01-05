@@ -15,8 +15,8 @@
 
             vm.modal = {
                 title: type + '验收资料',
-                city_name: 'city_name',
-                county_name: 'county_name',
+                city_name: $.cookie('city_name'),
+                county_name: vm.user.name,
                 station_name: undefined,
                 remark: undefined,
                 error: undefined
@@ -34,14 +34,52 @@
         };
     }
 
-    modal_instance_ctrl.$inject = ['$scope', '$modalInstance', 'modal'];
+    modal_instance_ctrl.$inject = ['$scope', '$modalInstance', 'modal', 'acceptance_material_svr'];
 
-    function modal_instance_ctrl(vm, $modalInstance, modal) {
+    function modal_instance_ctrl(vm, $modalInstance, modal, acceptance_material_svr) {
         vm.modal = modal;
 
         vm.save = function () {
-            $modalInstance.close();
-            msg('保存成功！');
+            var $acceptance_report = $('#acceptance_report'),
+                $acceptance_data = $('#acceptance_data'),
+                $acceptance_card = $('#acceptance_card');
+
+            if (!isString(vm.modal.station_name)) {
+                vm.modal.error = '水利站名称未填写';
+            } else if ($acceptance_report.fileinput('getFilesCount') == 0) {
+                vm.modal.error = '未选择验收报告';
+            } else if ($acceptance_data.fileinput('getFilesCount') == 0) {
+                vm.modal.error = '未选择申报资料';
+            } else if ($acceptance_card.fileinput('getFilesCount') == 0) {
+                vm.modal.error = '未选择验收卡';
+            } else {
+                $acceptance_report.fileinput('upload');
+                $acceptance_data.fileinput('upload');
+                $acceptance_card.fileinput('upload');
+
+                (function all_uploaded() {
+                    if (md5.acceptance_report.uploaded == md5.acceptance_data.uploaded == md5.acceptance_card.uploaded == true) {
+
+                        acceptance_material_svr.save($.extend(vm.modal, {
+                            acceptance_report: md5.acceptance_report,
+                            acceptance_data: md5.acceptance_data,
+                            acceptance_card: md5.acceptance_card
+                        }), function (response) {
+                            if (response.data > 0) {
+                                delete md5.acceptance_report;
+                                delete md5.acceptance_data;
+                                delete md5.acceptance_card;
+
+                                msg('保存成功!');
+                                $modalInstance.close();
+                            }
+                        });
+
+                        return;
+                    }
+                    setTimeout(all_uploaded, 100);
+                })();
+            }
         };
 
         vm.cancel = function () {

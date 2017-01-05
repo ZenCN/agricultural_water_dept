@@ -73,6 +73,8 @@
           <Property Name="D09" Type="varchar" MaxLength="50" />
           <Property Name="D10" Type="varchar" MaxLength="200" />
           <Property Name="D99" Type="tinyint" Nullable="false" />
+          <Property Name="DD3" Type="varchar" MaxLength="30" />
+          <Property Name="DD4" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="SX01_AREA">
           <Key>
@@ -145,7 +147,6 @@
           <EntitySet Name="DT01" EntityType="NSCModel.DT01" />
           <EntitySet Name="DT02" EntityType="NSCModel.DT02" />
           <EntitySet Name="DT03" EntityType="NSCModel.DT03" />
-          <EntitySet Name="DT04" EntityType="NSCModel.DT04" />
           <EntitySet Name="SX04_SYS" EntityType="NSCModel.SX04_SYS" />
           <EntitySet Name="SX02_USER" EntityType="NSCModel.SX02_USER" />
           <EntitySet Name="SX01_AREA" EntityType="NSCModel.SX01_AREA" />
@@ -158,6 +159,7 @@
             <End Role="SX03_DEPT" EntitySet="SX03_DEPT" />
             <End Role="SX02_USER" EntitySet="SX02_USER" />
           </AssociationSet>
+          <EntitySet Name="DT04" EntityType="NSCModel.DT04" />
           </EntityContainer>
         <EntityType Name="DT01">
           <Key>
@@ -190,24 +192,6 @@
           <Property Name="D03" Type="DateTime" />
           <Property Name="D04" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="D05" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Type="Byte" Name="D99" Nullable="false" />
-        </EntityType>
-        <EntityType Name="DT04">
-          <Key>
-            <PropertyRef Name="D01" />
-          </Key>
-          <Property Name="D01" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DD1" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
-          <Property Name="DD2" Type="String" MaxLength="40" Unicode="false" FixedLength="false" />
-          <Property Name="D02" Type="Int32" />
-          <Property Name="D03" Type="DateTime" />
-          <Property Name="D04" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="D05" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="D06" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="D07" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="D08" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="D09" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="D10" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
           <Property Type="Byte" Name="D99" Nullable="false" />
         </EntityType>
         <EntityType Name="SX04_SYS">
@@ -277,6 +261,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DT04">
+          <Key>
+            <PropertyRef Name="D01" />
+          </Key>
+          <Property Type="Int32" Name="D01" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="DD1" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DD2" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="D02" />
+          <Property Type="DateTime" Name="D03" />
+          <Property Type="String" Name="D04" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="D05" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="D06" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="D07" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="D08" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="D09" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="D10" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Byte" Name="D99" Nullable="false" />
+          <Property Type="String" Name="DD3" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DD4" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -316,25 +320,6 @@
                 <ScalarProperty Name="D03" ColumnName="D03" />
                 <ScalarProperty Name="D04" ColumnName="D04" />
                 <ScalarProperty Name="D05" ColumnName="D05" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DT04">
-            <EntityTypeMapping TypeName="NSCModel.DT04">
-              <MappingFragment StoreEntitySet="DT04">
-                <ScalarProperty Name="D99" ColumnName="D99" />
-                <ScalarProperty Name="D01" ColumnName="D01" />
-                <ScalarProperty Name="DD1" ColumnName="DD1" />
-                <ScalarProperty Name="DD2" ColumnName="DD2" />
-                <ScalarProperty Name="D02" ColumnName="D02" />
-                <ScalarProperty Name="D03" ColumnName="D03" />
-                <ScalarProperty Name="D04" ColumnName="D04" />
-                <ScalarProperty Name="D05" ColumnName="D05" />
-                <ScalarProperty Name="D06" ColumnName="D06" />
-                <ScalarProperty Name="D07" ColumnName="D07" />
-                <ScalarProperty Name="D08" ColumnName="D08" />
-                <ScalarProperty Name="D09" ColumnName="D09" />
-                <ScalarProperty Name="D10" ColumnName="D10" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -381,6 +366,27 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DT04">
+            <EntityTypeMapping TypeName="NSCModel.DT04">
+              <MappingFragment StoreEntitySet="DT04">
+                <ScalarProperty Name="DD4" ColumnName="DD4" />
+                <ScalarProperty Name="DD3" ColumnName="DD3" />
+                <ScalarProperty Name="D99" ColumnName="D99" />
+                <ScalarProperty Name="D10" ColumnName="D10" />
+                <ScalarProperty Name="D09" ColumnName="D09" />
+                <ScalarProperty Name="D08" ColumnName="D08" />
+                <ScalarProperty Name="D07" ColumnName="D07" />
+                <ScalarProperty Name="D06" ColumnName="D06" />
+                <ScalarProperty Name="D05" ColumnName="D05" />
+                <ScalarProperty Name="D04" ColumnName="D04" />
+                <ScalarProperty Name="D03" ColumnName="D03" />
+                <ScalarProperty Name="D02" ColumnName="D02" />
+                <ScalarProperty Name="DD2" ColumnName="DD2" />
+                <ScalarProperty Name="DD1" ColumnName="DD1" />
+                <ScalarProperty Name="D01" ColumnName="D01" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -405,7 +411,6 @@
         <EntityTypeShape EntityType="NSCModel.DT01" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9202278645833331" IsExpanded="true" />
         <EntityTypeShape EntityType="NSCModel.DT02" Width="1.5" PointX="2.75" PointY="0.75" Height="1.9202278645833335" IsExpanded="true" />
         <EntityTypeShape EntityType="NSCModel.DT03" Width="1.5" PointX="0.75" PointY="3.75" Height="1.9202278645833322" IsExpanded="true" />
-        <EntityTypeShape EntityType="NSCModel.DT04" Width="1.5" PointX="2.75" PointY="3.75" Height="3.2137866210937496" IsExpanded="true" />
         <EntityTypeShape EntityType="NSCModel.SX04_SYS" Width="1.5" PointX="8.375" PointY="3.75" Height="1.7354337565104174" />
         <EntityTypeShape EntityType="NSCModel.SX02_USER" Width="1.5" PointX="5.625" PointY="3.625" Height="2.6594042968749996" />
         <EntityTypeShape EntityType="NSCModel.SX01_AREA" Width="1.5" PointX="4.875" PointY="0.75" Height="2.1050219726562496" />
@@ -418,6 +423,7 @@
           <ConnectorPoint PointX="6.875" PointY="2.485433756510421" />
           <ConnectorPoint PointX="6.875" PointY="3.625" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="NSCModel.DT04" Width="1.5" PointX="3.125" PointY="3.75" Height="3.7681689453124996" />
       </Diagram>
     </Diagrams>
   </Designer>

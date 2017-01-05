@@ -123,22 +123,6 @@ namespace NSC
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        public ObjectSet<DT04> DT04
-        {
-            get
-            {
-                if ((_DT04 == null))
-                {
-                    _DT04 = base.CreateObjectSet<DT04>("DT04");
-                }
-                return _DT04;
-            }
-        }
-        private ObjectSet<DT04> _DT04;
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
         public ObjectSet<SX04_SYS> SX04_SYS
         {
             get
@@ -199,6 +183,22 @@ namespace NSC
             }
         }
         private ObjectSet<SX03_DEPT> _SX03_DEPT;
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        public ObjectSet<DT04> DT04
+        {
+            get
+            {
+                if ((_DT04 == null))
+                {
+                    _DT04 = base.CreateObjectSet<DT04>("DT04");
+                }
+                return _DT04;
+            }
+        }
+        private ObjectSet<DT04> _DT04;
 
         #endregion
 
@@ -226,14 +226,6 @@ namespace NSC
         public void AddToDT03(DT03 dT03)
         {
             base.AddObject("DT03", dT03);
-        }
-    
-        /// <summary>
-        /// 用于向 DT04 EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
-        /// </summary>
-        public void AddToDT04(DT04 dT04)
-        {
-            base.AddObject("DT04", dT04);
         }
     
         /// <summary>
@@ -266,6 +258,14 @@ namespace NSC
         public void AddToSX03_DEPT(SX03_DEPT sX03_DEPT)
         {
             base.AddObject("SX03_DEPT", sX03_DEPT);
+        }
+    
+        /// <summary>
+        /// 用于向 DT04 EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// </summary>
+        public void AddToDT04(DT04 dT04)
+        {
+            base.AddObject("DT04", dT04);
         }
 
         #endregion
@@ -1154,6 +1154,54 @@ namespace NSC
         private global::System.Byte _D99;
         partial void OnD99Changing(global::System.Byte value);
         partial void OnD99Changed();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DD3
+        {
+            get
+            {
+                return _DD3;
+            }
+            set
+            {
+                OnDD3Changing(value);
+                ReportPropertyChanging("DD3");
+                _DD3 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("DD3");
+                OnDD3Changed();
+            }
+        }
+        private global::System.String _DD3;
+        partial void OnDD3Changing(global::System.String value);
+        partial void OnDD3Changed();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DD4
+        {
+            get
+            {
+                return _DD4;
+            }
+            set
+            {
+                OnDD4Changing(value);
+                ReportPropertyChanging("DD4");
+                _DD4 = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("DD4");
+                OnDD4Changed();
+            }
+        }
+        private global::System.String _DD4;
+        partial void OnDD4Changing(global::System.String value);
+        partial void OnDD4Changed();
 
         #endregion
 

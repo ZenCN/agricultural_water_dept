@@ -25,6 +25,53 @@ namespace NSC.DYCode
             this.tb = tb;
         }
 
+
+        //表4单文件上传
+        public string Handle(string md5, HttpPostedFileBase file)
+        {
+            string msg = "";
+
+            using (var dbcon = db.Connection)
+            {
+                dbcon.Open();
+                using (var trans = dbcon.BeginTransaction())
+                {
+                    SX04_SYS sx04 = null;
+                    try
+                    {
+                        string guid = Guid.NewGuid().ToString("N");
+                        sx04 = new SX04_SYS();
+                        sx04.MD5 = Tool.getMd5(file.InputStream);
+                        sx04.FILEURL = basePath + Path.DirectorySeparatorChar + guid;
+                        sx04.FILEPATH = AppDomain.CurrentDomain.BaseDirectory + basePath + Path.DirectorySeparatorChar +
+                                        guid;
+
+                        file.SaveAs(sx04.FILEPATH);
+
+                        db.SX04_SYS.AddObject(sx04);
+
+                        db.SaveChanges();
+
+                        msg = sx04.MD5;
+                    }
+                    catch (Exception ex)
+                    {
+                        trans.Rollback();
+
+                        if (File.Exists(sx04.FILEPATH))
+                        {
+                            File.Delete(sx04.FILEPATH);
+                        }
+
+                        msg = ex.Message;
+                    }
+                }
+            }
+
+            return msg;
+        }
+
+        //多文件上传
         public List<RetFileInfo> Handle(List<UFileInfo> list, List<HttpPostedFileBase> files)
         {
             SX04_SYS file = null;
@@ -149,5 +196,5 @@ namespace NSC.DYCode
         }
     }
 
-    public enum Table { DT01, DT02, DT03 }
+    public enum Table { DT01, DT02, DT03 , DT04}
 }

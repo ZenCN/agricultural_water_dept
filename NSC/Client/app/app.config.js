@@ -86,10 +86,11 @@
                 resolve: resolve_dep([
                     'client/bower_component/bootstrap-fileinput/css/fileinput.min.css',
                     'client/app/acceptance_material/acceptance_material_ctrl.js',
-                    'client/app/service/acceptance_material_svr.js',
                     'client/app/controller/modal_ctrl.js',
+                    'client/bower_component/bootstrap-fileinput/js/fileinput.min.js',
+                    'client/bower_component/md5.min.js',
                     'client/app/directive/sing_upload.js',
-                    'client/bower_component/bootstrap-fileinput/js/fileinput.min.js'
+                    'client/app/service/acceptance_material_svr.js'
                 ])
             })
             /*------------------------农民用水合作组织示范创建------------------------*/

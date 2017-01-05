@@ -11,12 +11,18 @@
         return {
             station: {
                 get_names: get_names,
-                search: search
+                search: search,
+                save: save
             }
         };
 
         function get_names(callback) {
             
+        };
+
+        function save(data, callback) {
+
+            return svr.http({ url: '/save', data: data }, callback);
         };
 
         function search(code, callback) {

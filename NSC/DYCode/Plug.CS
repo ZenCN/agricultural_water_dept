@@ -35,6 +35,18 @@ namespace Dynashety.Plug
             }
         }
 
+        public object UpLoad(string md5, HttpPostedFileBase file)
+        {
+            try
+            {
+                return I.Handle(md5, file);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public void DownLoad(List<DFileInfo> files, HttpContextBase c)
         {
             switch (files.Count)
@@ -99,5 +111,6 @@ namespace Dynashety.Plug
     public interface I_FileUpLoad
     {
         List<RetFileInfo> Handle(List<UFileInfo> f, List<HttpPostedFileBase> t);
+        string Handle(string md5, HttpPostedFileBase file);
     }
 }

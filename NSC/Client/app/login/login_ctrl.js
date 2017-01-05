@@ -62,6 +62,10 @@
 
                     if ($r_scope.user.level > 2) {
                         $r_scope.user.name = $r_scope.user.data.seek('code', $r_scope.user.code, 'name');
+
+                        if ($r_scope.user.level == 4) {
+                            $.cookie('city_name', vm.city.data.seek('code', vm.city.code, 'name'));
+                        }
                     }
 
                     delete $r_scope.user.data;
