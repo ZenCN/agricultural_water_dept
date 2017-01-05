@@ -18,8 +18,19 @@ git reset --hard
 git pull
 
 --------------------------------------------git提速方法-------------------------------------------
+										  << 解决方案一 >>
+使用ssh或者git:// 而不是 https 来push，详细配置见以下网址：
+windows+git+ssh+vs2010 服务器与客户端版本控制环境搭建：http://blog.csdn.net/jjp837661103/article/details/16973931
 
-通过修改修改ssh配置提速，找到默认安装目录：C:\Program Files\Git\etc\ssh 下的ssh_config文件 末尾添加以下代码
+                                          << 解决方案二 >>
+找到默认安装目录：C:\Program Files\Git\etc\ssh 下的ssh_config文件，用记事本打开，去掉 GSSAPIAuthentication no# 中的 #
+作用两个说法：
+服务器端启用了GSSAPI，登录的时候客户端需要对服务器端的IP地址进行反解析，如果服务器的IP地址没有配置PTR记录，那么就容易在这里卡住了，
+是否允许使用基于GSSAPI的用户认证，去掉#后默认值变为"no",即跳过基于GSSAPI的用户认证，仅用于SSH-2
+
+										  << 解决方案三 >>
+通过修改文件vim ~/.ssh/config（这个config文件应该是安装仅限个人使用时，是当前用户的文件夹下面，
+或在当前用户的appdata文件夹（注意：该文件夹是隐藏的，直接输入路径‘\appdata’即可）下面）
 
 ControlMaster auto
 ##ControlPath /tmp/%r@%h:%p
