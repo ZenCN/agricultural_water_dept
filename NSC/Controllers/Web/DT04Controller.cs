@@ -23,7 +23,18 @@ namespace NSC.Controllers.Web
 
         public ActionResult Save(string json)
         {
-            return Json(new Handle().Save(json), JsonRequestBehavior.AllowGet);
+            return Json(new TB04().Save(json), JsonRequestBehavior.AllowGet);
+        }
+
+        public string Query(string city_code, string county_code, string station_name)
+        {
+            return new TB04().Query(city_code, county_code, station_name);
+        }
+
+        public void Download(string file_name, string file_url)
+        {
+            Response.AppendHeader("Content-disposition", "attachment;filename=" + file_name);
+            Response.WriteFile(AppDomain.CurrentDomain.BaseDirectory + "Zizo\\" + file_url);
         }
     }
 }

@@ -9,14 +9,12 @@
     function acceptance_material_svr(svr) {
 
         return {
-            station: {
-                get_names: get_names,
-                search: search
-            },
-            save: save
+            get_station_names: get_station_names,
+            save: save,
+            search: search
         };
 
-        function get_names(callback) {
+        function get_station_names(callback) {
             
         };
 
@@ -36,8 +34,11 @@
                 }), callback);
         };
 
-        function search(code, callback) {
-            
+        function search(params, callback) {
+            return svr.http({
+                url: 'dt04/query',
+                params: params
+            }, callback)
         };
     }
 })();

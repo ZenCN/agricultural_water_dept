@@ -56,7 +56,7 @@ namespace NSC.DYCode
 
                         trans.Commit();
 
-                        return JsonConvert.SerializeObject(new {file_name = file.FileName, file_path = sx04.FILEPATH});
+                        return JsonConvert.SerializeObject(new { file_name = file.FileName, file_path = guid });
                     }
                     catch (Exception ex)
                     {

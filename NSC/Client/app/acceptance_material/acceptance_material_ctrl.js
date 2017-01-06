@@ -19,13 +19,17 @@
             data: []
         };
 
+        if (vm.user.level == 4) {
+            vm.county.code = vm.user.code;
+        }
+
         vm.no_results = false;
         vm.conservancy_station = undefined;
         vm.station_selecting = function(item) {
             vm.conservancy_station = item;
         };
         vm.get_stations = function(name) {
-            return acceptance_material_svr.search.station.get_names(name, function (response) {
+            return acceptance_material_svr.get_station_names(name, function(response) {
                 vm.no_results = response.data.length == 0;
 
                 return response.data;
@@ -35,10 +39,26 @@
         vm.search = {
             result: [],
             from_svr: function() {
-                return acceptance_material_svr.search.station.search(function (response) {
-
-                    vm.search = response.data;
+                return acceptance_material_svr.search({
+                    city_code: vm.city.code,
+                    county_code: vm.county.code,
+                    station_name: vm.conservancy_station
+                }, function(response) {
+                    vm.search.result = response.data;
+                    console.log(response.data);
                 });
+            }
+        };
+
+        vm.download = function (file_name, file_url) {
+            window.location.href = 'dt04/download?file_name=' + file_name + '&file_url=' + file_url;
+        };
+
+        vm.show = function(btn_name) {
+            switch (EXPR) {
+            case CASE1:
+                
+            default:
             }
         };
     }

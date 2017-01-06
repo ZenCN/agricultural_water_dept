@@ -1,10 +1,10 @@
 ﻿<div class="row" style="margin-bottom: 20px;">
-    <div class="col-xs-2 text-right" ng-if="user.level == 4" ng-controller="modal_ctrl">
+    <div class="col-xs-2 text-right" ng-class="{'col-xs-offset-2':user.level == 4}" ng-if="user.level == 4" ng-controller="modal_ctrl">
         <button type="button" class="btn btn-primary" ng-click="open('add')">
             新增
         </button>
     </div>
-    <div class="col-xs-2">
+    <div class="col-xs-2" ng-if="user.level == 2">
         <div class="input-group">
             <span class="input-group-addon">市级</span>
             <select class="form-control" ng-model="city.code">
@@ -14,7 +14,7 @@
             </select>
         </div>
     </div>
-    <div class="col-xs-2">
+    <div class="col-xs-2" ng-if="user.level < 4">
         <div class="input-group">
             <span class="input-group-addon">县级</span>
             <select class="form-control" ng-model="county.code">
@@ -36,13 +36,13 @@
         </div>
     </div>
     <div class="col-xs-2">
-        <button type="button" class="btn btn-primary" ng-click="search()">
+        <button type="button" class="btn btn-primary" ng-click="search.from_svr()">
             搜索
         </button>
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-8 col-xs-offset-2">
+    <div class="col-xs-12">
         <table class="table table-striped table-bordered table-hover">
             <thead>
             <tr role="row">
@@ -79,7 +79,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr><!--ng-repeat="file in search.result"-->
+            <tr ng-repeat="_this in search.result">
                 <td>
                     <div class="btn-group btn-group-xs">
                         <button type="button" class="btn btn-primary" ng-controller="modal_ctrl" ng-click="open('modify')">修改</button>
@@ -92,21 +92,21 @@
                         <button type="button" class="btn btn-success">预览</button>
                     </div>
                 </td>
-                <td>状态</td>
-                <td>市级</td>
-                <td>县级</td>
-                <td>水利站</td>
+                <td>{{_this.D02}}</td>
+                <td>{{_this.DD3}}</td>
+                <td>{{_this.DD4}}</td>
+                <td>{{_this.DD2}}</td>
                 <td>
-                    <a>验收报告</a>
+                    <a ng-click="download(_this.D04,_this.D07)">{{_this.D04}}</a>
                 </td>
                 <td>
-                    <a>申报资料</a>
+                    <a ng-click="download(_this.D05,_this.D08)">{{_this.D05}}</a>
                 </td>
                 <td>
-                    <a>验收卡</a>
+                    <a ng-click="download(_this.D06,_this.D09)">{{_this.D06}}</a>
                 </td>
-                <td>上报日期</td>
-                <td>备注</td>
+                <td>{{_this.D03}}</td>
+                <td>{{_this.D10}}</td>
             </tr>
             </tbody>
         </table>

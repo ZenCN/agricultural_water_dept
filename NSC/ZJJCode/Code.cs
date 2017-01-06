@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using JsonDotNet.CustomContractResolvers;
 using Newtonsoft.Json;
 
 namespace NSC.ZJJCode
 {
-    public class Handle
+    public class TB04
     {
         private NSCEntities db = new NSCEntities();
 
@@ -39,7 +40,58 @@ namespace NSC.ZJJCode
             }
         }
 
-        public object Template()
+        public string Query(string city_code, string county_code, string station_name)
+        {
+            try
+            {
+                IQueryable<DT04> query = db.DT04;
+
+                if (!string.IsNullOrEmpty(county_code))  //市、县查询
+                {
+                    query = db.DT04.Where(t => t.DD1 == county_code).AsQueryable();
+                }
+                else if (!string.IsNullOrEmpty(city_code))  //市查询
+                {
+                    city_code = city_code.Substring(0, 4);
+                    query = db.DT04.Where(t => t.DD1.StartsWith(city_code)).AsQueryable();
+                }
+
+                if (!string.IsNullOrEmpty(station_name))
+                {
+                    query = query.Where(t => t.DD2.Contains(station_name)).AsQueryable();
+                }
+
+                var settings = getSerializerSettings();
+                settings.DateFormatString = "yyyy-MM-dd hh:mm";
+
+                return JsonConvert.SerializeObject(query.ToList(), settings);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        public void Download(string file_name, string file_url, HttpContextBase context)
+        {
+            context.Response.AppendHeader("Content-disposition", "attachment;filename=" + file_name);
+            context.Response.WriteFile(AppDomain.CurrentDomain.BaseDirectory + file_url);
+        }
+
+        private JsonSerializerSettings getSerializerSettings()
+        {
+            var serializerSettings = new JsonSerializerSettings();
+            var propertiesContractResolver = new PropertiesContractResolver();
+
+            propertiesContractResolver.ExcludeProperties.Add("$id");
+            propertiesContractResolver.ExcludeProperties.Add("EntityKey");
+
+            serializerSettings.ContractResolver = propertiesContractResolver;
+
+            return serializerSettings;
+        }
+
+        public object Template_Save()
         {
             using (var dbcon = db.Connection)
             {
@@ -58,6 +110,18 @@ namespace NSC.ZJJCode
                         return ex.Message;
                     }
                 }
+            }
+        }
+
+        public object Template_Query()
+        {
+            try
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
             }
         }
     }
