@@ -55,11 +55,7 @@
         };
 
         vm.show = function(btn_name) {
-            switch (EXPR) {
-            case CASE1:
-                
-            default:
-            }
+             
         };
     }
 })();
