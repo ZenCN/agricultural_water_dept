@@ -6,15 +6,14 @@
         .controller('modal_ctrl', modal_ctrl)
         .controller('modal_instance_ctrl', modal_instance_ctrl);
 
-    modal_ctrl.$inject = ['$scope', '$modal'];
+    modal_ctrl.$inject = ['$scope', '$modal', '$timeout'];
 
-    function modal_ctrl(vm, $modal) {
+    function modal_ctrl(vm, $modal, $timeout) {
 
         vm.open = function (type) {
-            type = type == 'add' ? '新增' : '修改';
 
             vm.modal = {
-                title: type + '验收资料',
+                title: (type == 'add' ? '新增' : '修改') + '验收资料',
                 city_name: $.cookie('city_name'),
                 county_name: vm.user.name,
                 county_code: vm.user.code,
@@ -22,6 +21,19 @@
                 remark: undefined,
                 error: undefined
             };
+
+            if (type == 'modify') {
+                var scope = $(event.srcElement || event.target).parent().scope();
+                vm.modal.station_name = scope._this.DD2;
+                vm.modal.remark = scope._this.D10;
+
+                $timeout(function() {
+                    var $caption = $('.file-caption-name');
+                    $caption.eq(0).html(scope._this.D04);
+                    $caption.eq(1).html(scope._this.D05);
+                    $caption.eq(2).html(scope._this.D06);
+                });
+            }
 
             $modal.open({
                 templateUrl: 'client/app/controller/modal.html',
@@ -44,6 +56,15 @@
             var $acceptance_report = $('#acceptance_report'),
                 $acceptance_data = $('#acceptance_data'),
                 $acceptance_card = $('#acceptance_card');
+
+            if ($('.modal-dialog table .ng-dirty').length == 0 &&
+                $acceptance_report.fileinput('getFilesCount') == 0 &&
+                $acceptance_data.fileinput('getFilesCount') == 0 &&
+                $acceptance_card.fileinput('getFilesCount') == 0) {
+
+                msg('没有修改任何数据，不需要保存');
+                $modalInstance.close();
+            }
 
             if (!isString(vm.modal.station_name)) {
                 vm.modal.error = '水利站名称未填写';

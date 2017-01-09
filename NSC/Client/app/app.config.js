@@ -90,7 +90,8 @@
                     'client/bower_component/bootstrap-fileinput/js/fileinput.min.js',
                     'client/bower_component/md5.min.js',
                     'client/app/directive/sing_upload.js',
-                    'client/app/service/acceptance_material_svr.js'
+                    'client/app/service/acceptance_material_svr.js',
+                    'client/app/service/login_svr.js'
                 ])
             })
             /*------------------------农民用水合作组织示范创建------------------------*/

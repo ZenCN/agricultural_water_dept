@@ -36,5 +36,15 @@ namespace NSC.Controllers.Web
             Response.AppendHeader("Content-disposition", "attachment;filename=" + file_name);
             Response.WriteFile(AppDomain.CurrentDomain.BaseDirectory + "Zizo\\" + file_url);
         }
+
+        public string QueryStation(string key_words)
+        {
+            return new TB04().QueryStation(key_words);
+        }
+
+        public string ChangeState(int id, string oper)
+        {
+            return new TB04().ChangeState(id, oper);
+        }
     }
 }

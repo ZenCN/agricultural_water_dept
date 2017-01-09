@@ -1,26 +1,22 @@
 ﻿<div class="row" style="margin-bottom: 20px;">
-    <div class="col-xs-2 text-right" ng-class="{'col-xs-offset-2':user.level == 4}" ng-if="user.level == 4" ng-controller="modal_ctrl">
+    <div class="col-xs-2 text-right" ng-class="{'col-xs-offset-2': user.level == 4}" ng-if="user.level == 4" ng-controller="modal_ctrl">
         <button type="button" class="btn btn-primary" ng-click="open('add')">
             新增
         </button>
     </div>
-    <div class="col-xs-2" ng-if="user.level == 2">
+    <div class="col-xs-2 col-xs-offset-1" ng-if="user.level == 2">
         <div class="input-group">
             <span class="input-group-addon">市级</span>
-            <select class="form-control" ng-model="city.code">
-                <option ng-repeat="city in city.data" ng-selected="city.code == city.code" value="{{city.code}}">
-                    {{city.code.name}}
-                </option>
+            <select class="form-control" ng-model="city.code" ng-options="unit.code as unit.name for unit in city.data" ng-change="city_change()">
+                <option value="">———————</option>
             </select>
         </div>
     </div>
-    <div class="col-xs-2" ng-if="user.level < 4">
+    <div class="col-xs-2" ng-class="{'col-xs-offset-2': user.level== 3}" ng-if="user.level < 4">
         <div class="input-group">
             <span class="input-group-addon">县级</span>
-            <select class="form-control" ng-model="county.code">
-                <option ng-repeat="county in county.data" ng-selected="county.code == city.code" value="{{county.code}}">
-                    {{city.code.name}}
-                </option>
+            <select class="form-control" ng-model="county.code" ng-options="unit.code as unit.name for unit in county.data">
+                <option value="">———————</option>
             </select>
         </div>
     </div>
@@ -82,17 +78,14 @@
             <tr ng-repeat="_this in search.result">
                 <td>
                     <div class="btn-group btn-group-xs">
-                        <button type="button" class="btn btn-primary" ng-controller="modal_ctrl" ng-click="open('modify')">修改</button>
-                        <button type="button" class="btn btn-success">报送</button><!--县级保存后显示 1 或 市级退回后 2-->
-                        <button type="button" class="btn btn-success">退回</button><!--县级报送后显示 3-->
-                    </div>
-                    <div class="btn-group btn-group-xs">
-                        <button type="button" class="btn btn-primary">删除</button><!--县级保存后显示 1 或 市级退回后 2-->
-                        <button type="button" class="btn btn-success">备案</button><!--县级报送后显示 3-->
-                        <button type="button" class="btn btn-success">预览</button>
+                        <button type="button" class="btn btn-primary" ng-controller="modal_ctrl" ng-if="show('modify',_this)" ng-click="open('modify')">修改</button>
+                        <button type="button" class="btn btn-success" ng-if="show('send',_this)" ng-click="send(_this)">报送</button>
+                        <button type="button" class="btn btn-primary" ng-if="show('untread',_this)" ng-click="untread(_this)">退回</button>
+                        <button type="button" class="btn btn-success" ng-if="show('remove',_this)" ng-click="remove(_this)">删除</button>
+                        <button type="button" class="btn btn-primary" ng-if="show('record',_this)" ng-click="record(_this)">备案</button>
                     </div>
                 </td>
-                <td>{{_this.D02}}</td>
+                <td>{{state_name(_this.D02)}}</td>
                 <td>{{_this.DD3}}</td>
                 <td>{{_this.DD4}}</td>
                 <td>{{_this.DD2}}</td>

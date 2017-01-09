@@ -72,6 +72,57 @@ namespace NSC.ZJJCode
             }
         }
 
+        public string QueryStation(string key_words)
+        {
+            try
+            {
+                var list = db.DT04.Where(t => t.DD2.Contains(key_words)).Select(t => t.DD2).ToList();
+
+                return JsonConvert.SerializeObject(list, getSerializerSettings());
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        public string ChangeState(int id, string oper)
+        {
+            try
+            {
+                int msg = 0;
+                switch (oper)
+                {
+                    case "remove":
+                        msg = 1;
+                        var dt04 = db.DT04.SingleOrDefault(t => t.D01 == id);
+                        db.DT04.DeleteObject(dt04);
+                        //尚未删除Sys表
+                        break;
+                    case "send":
+                        msg = 3;
+                        db.DT04.SingleOrDefault(t => t.D01 == id).D02 = msg;
+                        break;
+                    case "record":
+                        msg = 4;
+                        db.DT04.SingleOrDefault(t => t.D01 == id).D02 = msg;
+                        break;
+                    case "untread":
+                        msg = 2;
+                        db.DT04.SingleOrDefault(t => t.D01 == id).D02 = msg;
+                        break;
+                }
+
+                db.SaveChanges();
+
+                return msg.ToString();
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
         public void Download(string file_name, string file_url, HttpContextBase context)
         {
             context.Response.AppendHeader("Content-disposition", "attachment;filename=" + file_name);
