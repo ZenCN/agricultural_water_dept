@@ -8,11 +8,11 @@
     multipleUpload.$inject = ['svr'];
 
     function multipleUpload(svr) {
-        return function($scope, $element) {
+        return function ($scope, $element) {
             $(function() {
                 $element.fileinput({
                     language: "zh",
-                    uploadUrl: 'dt01/upload',
+                    uploadUrl: $scope.cur_dt + '/upload',
                     uploadAsync: false,
                     uploadExtraData: function() { //uploadExtraData must be an object or function
                         if (md5.files.length) {

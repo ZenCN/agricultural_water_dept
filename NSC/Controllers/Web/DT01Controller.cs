@@ -19,7 +19,7 @@ namespace NSC.Controllers
     {
         public ActionResult Index(int year, string name)
         {
-            return Json(new Other().Index(year, name), JsonRequestBehavior.AllowGet);
+            return Json(new Other().Index(year, name, Table.DT01), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult UpLoad(string list, List<HttpPostedFileBase> files)
@@ -62,12 +62,12 @@ namespace NSC.Controllers
 
         public JsonResult Search(int year, string name)
         {
-            return Json(new Other().Serach(year, name), JsonRequestBehavior.AllowGet);
+            return Json(new Other().Serach(year, name, Table.DT01), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Delete(int index)
         {
-            return Json(new Other().Delete(index), JsonRequestBehavior.AllowGet);
+            return Json(new Other().Delete(index, Table.DT01), JsonRequestBehavior.AllowGet);
         }
     }
 }

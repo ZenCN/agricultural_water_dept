@@ -183,20 +183,58 @@ namespace NSC.DYCode
             return new NSCEntities().DT01.Where(t => t.D99 == 0 && list.Contains(t.D01)).Select(t => new DFileInfo { fileName = t.D02, fileUrl = t.D04 }).ToList();
         }
 
-        public object Serach(int year, string name)
+        public object Serach(int year, string name, Table tb)
         {
-            return db.DT01.Where(t => t.D99 == 0 && t.D03.Value.Year == year && t.D02.Contains(name)).Select(t => t.D02).ToList();
+            switch (tb)
+            {
+                case Table.DT01:
+                    return db.DT01.Where(t => t.D99 == 0 && t.D03.Value.Year == year && t.D02.Contains(name))
+                        .Select(t => t.D02).ToList();
+                case Table.DT02:
+                    return db.DT02.Where(t => t.D99 == 0 && t.D03.Value.Year == year && t.D02.Contains(name))
+                        .Select(t => t.D02).ToList();
+                case Table.DT03:
+                    return db.DT03.Where(t => t.D99 == 0 && t.D03.Value.Year == year && t.D02.Contains(name))
+                        .Select(t => t.D02).ToList();
+                default:
+                    return null;
+            }
         }
 
-        public object Index(int year, string name)
+        public object Index(int year, string name, Table tb)
         {
-            return db.DT01.Where(t => t.D99 == 0 && t.D03.Value.Year == year && (name == null ? true : t.D02.Contains(name))).Select(t => new { D01 = t.D01, D02 = t.D02, D03 = t.D03 }).ToList();
+            switch (tb)
+            {
+                case Table.DT01:
+                    return db.DT01.Where(t => t.D99 == 0 && t.D03.Value.Year == year && (name == null ? true : t.D02.Contains(name)))
+                        .Select(t => new { D01 = t.D01, D02 = t.D02, D03 = t.D03 }).ToList();
+                case Table.DT02:
+                    return db.DT02.Where(t => t.D99 == 0 && t.D03.Value.Year == year && (name == null ? true : t.D02.Contains(name)))
+                        .Select(t => new { D01 = t.D01, D02 = t.D02, D03 = t.D03 }).ToList();
+                case Table.DT03:
+                    return db.DT03.Where(t => t.D99 == 0 && t.D03.Value.Year == year && (name == null ? true : t.D02.Contains(name)))
+                        .Select(t => new { D01 = t.D01, D02 = t.D02, D03 = t.D03 }).ToList();
+                default:
+                    return null;
+            }
         }
 
-        public object Delete(int index)
+        public object Delete(int index, Table tb)
         {
-            db.DT01.SingleOrDefault(t => t.D01 == index && t.D99 == 0).D99 = 1;
-            return db.SaveChanges();
+            switch (tb)
+            {
+                case Table.DT01:
+                    db.DT01.SingleOrDefault(t => t.D01 == index && t.D99 == 0).D99 = 1;
+                    return db.SaveChanges();
+                case Table.DT02:
+                    db.DT02.SingleOrDefault(t => t.D01 == index && t.D99 == 0).D99 = 1;
+                    return db.SaveChanges();
+                case Table.DT03:
+                    db.DT03.SingleOrDefault(t => t.D01 == index && t.D99 == 0).D99 = 1;
+                    return db.SaveChanges();
+                default:
+                    return null;
+            }
         }
     }
 

@@ -108,7 +108,7 @@
                     'client/bower_component/jquery-tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css',
                     'client/bower_component/jquery-tooltipster/js/tooltipster.bundle.js',
                     'client/bower_component/md5.min.js',
-                    'client/app/directive/upload_file.js',
+                    'client/app/directive/multiple_upload.js',
                     'client/app/service/normative_svr.js'
                 ])
             })
@@ -125,7 +125,7 @@
                     'client/bower_component/jquery-tooltipster/css/plugins/tooltipster/sideTip/themes/tooltipster-sideTip-shadow.min.css',
                     'client/bower_component/jquery-tooltipster/js/tooltipster.bundle.js',
                     'client/bower_component/md5.min.js',
-                    'client/app/directive/upload_file.js',
+                    'client/app/directive/multiple_upload.js',
                     'client/app/service/normative_svr.js'
                 ])
             });

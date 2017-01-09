@@ -8,10 +8,22 @@
     normative_docs_ctrl.$inject = ['$scope', 'normative_svr'];
 
     function normative_docs_ctrl(vm, normative_svr) {
+        vm.cur_dt = undefined;
+        switch (vm.state.current.value) {
+            case 'normative_docs':
+                vm.cur_dt = 'dt01';
+                break;
+            case 'application_materials':
+                vm.cur_dt = 'dt02';
+                break;
+            case 'demonstration_org':
+                vm.cur_dt = 'dt03';
+                break;
+        }
 
         vm.year = {
             data: function () {
-                var years = [], start_year = 2015, cur_year = new Date().getFullYear() + 1; //start_year 项目启动年份
+                var years = [], start_year = 2016, cur_year = new Date().getFullYear() + 1; //start_year 项目启动年份
                 for (start_year; start_year <= cur_year; start_year++) {
                     years.push(start_year);
                 }
@@ -27,7 +39,7 @@
             vm.file_name = item;
         };
         vm.get_file_names = function(name) {
-            return normative_svr.search.file_name(vm.year.selected, name, function (response) {
+            return normative_svr.search.file_name(vm.cur_dt, vm.year.selected, name, function (response) {
                 vm.no_results = response.data.length == 0;
 
                 return response.data;
@@ -37,7 +49,7 @@
         vm.search = {
             result: [],
             from_svr: function() {
-                normative_svr.search.file(vm.year.selected, vm.file_name, function(response) {
+                normative_svr.search.file(vm.cur_dt, vm.year.selected, vm.file_name, function (response) {
                     vm.search.result = response.data;
 
                     if (vm.search.result.length > 0) {
@@ -53,7 +65,7 @@
 
         vm.remove = function(id) {
             if (confirm('确定要删除吗？')) {
-                normative_svr.remove_file(id, function(response) {
+                normative_svr.remove_file(vm.cur_dt, id, function (response) {
                     if (response.data > 0) {
                         vm.search.result.seek('D01', id, 'del');
                         msg('删除成功');
@@ -63,11 +75,11 @@
         };
 
         vm.download = function(id) {
-            window.location.href = 'dt01/download?list=[' + id + ']';
+            window.location.href = vm.cur_dt + '/download?list=[' + id + ']';
         };
 
         vm.preview = function() {
-            
+
         };
     }
 })();

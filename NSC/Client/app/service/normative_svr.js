@@ -16,17 +16,17 @@
             remove_file: remove_file
         };
 
-        function get_file_name(year, name, callback) {
-            return svr.http('dt01/search?year=' + year + '&name=' + name, callback);
+        function get_file_name(table_id, year, name, callback) {
+            return svr.http(table_id + '/search?year=' + year + '&name=' + name, callback);
         }
 
-        function get_file(year, name, callback) {
+        function get_file(table_id, year, name, callback) {
             name = name ? name : '';
-            return svr.http('dt01/index?year=' + year + '&name=' + name, callback);
+            return svr.http(table_id + '/index?year=' + year + '&name=' + name, callback);
         }
 
-        function remove_file(index, callback) {
-            return svr.http('dt01/delete?index=' + index, callback);
+        function remove_file(table_id, index, callback) {
+            return svr.http(table_id + '/delete?index=' + index, callback);
         }
     }
 })();
