@@ -188,13 +188,13 @@ namespace NSC.DYCode
             switch (tb)
             {
                 case Table.DT01:
-                    return db.DT01.Where(t => t.D99 == 0 && t.D03.Value.Year == year && t.D02.Contains(name))
+                    return db.DT01.Where(t => t.D99 == 0 && t.D03.Value.Year == year && (string.IsNullOrEmpty(name) ? true : t.D02.Contains(name)))
                         .Select(t => t.D02).ToList();
                 case Table.DT02:
-                    return db.DT02.Where(t => t.D99 == 0 && t.D03.Value.Year == year && t.D02.Contains(name))
+                    return db.DT02.Where(t => t.D99 == 0 && t.D03.Value.Year == year && (string.IsNullOrEmpty(name) ? true : t.D02.Contains(name)))
                         .Select(t => t.D02).ToList();
                 case Table.DT03:
-                    return db.DT03.Where(t => t.D99 == 0 && t.D03.Value.Year == year && t.D02.Contains(name))
+                    return db.DT03.Where(t => t.D99 == 0 && t.D03.Value.Year == year && (string.IsNullOrEmpty(name) ? true : t.D02.Contains(name)))
                         .Select(t => t.D02).ToList();
                 default:
                     return null;
@@ -206,13 +206,14 @@ namespace NSC.DYCode
             switch (tb)
             {
                 case Table.DT01:
-                    return db.DT01.Where(t => t.D99 == 0 && t.D03.Value.Year == year && (name == null ? true : t.D02.Contains(name)))
+                    return db.DT01.Where(t => t.D99 == 0 && t.D03.Value.Year == year 
+                        && (string.IsNullOrEmpty(name) ? true : t.D02.Contains(name)))
                         .Select(t => new { D01 = t.D01, D02 = t.D02, D03 = t.D03 }).ToList();
                 case Table.DT02:
-                    return db.DT02.Where(t => t.D99 == 0 && t.D03.Value.Year == year && (name == null ? true : t.D02.Contains(name)))
+                    return db.DT02.Where(t => t.D99 == 0 && t.D03.Value.Year == year && (string.IsNullOrEmpty(name) ? true : t.D02.Contains(name)))
                         .Select(t => new { D01 = t.D01, D02 = t.D02, D03 = t.D03 }).ToList();
                 case Table.DT03:
-                    return db.DT03.Where(t => t.D99 == 0 && t.D03.Value.Year == year && (name == null ? true : t.D02.Contains(name)))
+                    return db.DT03.Where(t => t.D99 == 0 && t.D03.Value.Year == year && (string.IsNullOrEmpty(name) ? true : t.D02.Contains(name)))
                         .Select(t => new { D01 = t.D01, D02 = t.D02, D03 = t.D03 }).ToList();
                 default:
                     return null;

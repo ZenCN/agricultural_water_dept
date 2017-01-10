@@ -16,11 +16,17 @@ namespace NSC.Controllers
 
         public JsonResult Login(string areaCode, string pw)
         {
-            SX02_USER SessionInfo = (Session[ConstInfo.sys_session_info] = db.SX02_USER.Join(db.SX01_AREA, a => a.AREAINDEX, b => b.ZIZOINDEX, (a, b) => a).SingleOrDefault(t => t.SX01_AREA.AREACODE == areaCode && t.STATE)) as SX02_USER;
+            SX02_USER SessionInfo =
+                (Session[ConstInfo.sys_session_info] =
+                    db.SX02_USER.Join(db.SX01_AREA, a => a.AREAINDEX, b => b.ZIZOINDEX, (a, b) => a)
+                        .SingleOrDefault(t => t.SX01_AREA.AREACODE == areaCode && t.STATE)) as SX02_USER;
             //SessionInfo SessionInfo = (Session[ConstInfo.sys_session_info] = db.SX02_USER.Where(t => t.ID == id && t.STATE).ToList().Select(t => new SessionInfo(t)).SingleOrDefault()) as SessionInfo;
             if (SessionInfo != null)
             {
-                if (SessionInfo.PW != pw) throw new Exception("对不起,密码验证失败!");
+                if (SessionInfo.PW != pw)
+                {
+                    return Json(0, JsonRequestBehavior.AllowGet);
+                }
                 else
                 {
                     Session.Timeout = 180;
@@ -48,11 +54,13 @@ namespace NSC.Controllers
                     {
                         Expires = DateTime.Now.AddDays(7)
                     });
-                    return Json(new { retVal = true }, JsonRequestBehavior.AllowGet);
+                    return Json(1, JsonRequestBehavior.AllowGet);
                 }
             }
             else
-                throw new Exception("对不起,用户名不存在!");
+            {
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public JsonResult getAreaInfo(string code)

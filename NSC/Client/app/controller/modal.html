@@ -53,6 +53,7 @@
     </table>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="save()">保存</button>
+    <button class="btn btn-primary" ng-if="modal.type == 'add'" ng-click="save()">新增</button>
+    <button class="btn btn-primary" ng-if="modal.type == 'modify'" ng-click="modify()">修改</button>
     <button class="btn btn-warning" ng-click="cancel()">取消</button>
 </div>

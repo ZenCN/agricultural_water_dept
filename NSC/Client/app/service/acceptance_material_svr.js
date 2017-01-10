@@ -11,12 +11,13 @@
         return {
             get_station_names: get_station_names,
             save: save,
+            modify: modify,
             search: search,
             operate: operate
         };
 
-        function get_station_names(key_words, callback) {
-            return svr.http('dt04/querystation?key_words=' + key_words, callback);
+        function get_station_names(key_words, level, callback) {
+            return svr.http('dt04/querystation?key_words=' + key_words + '&level=' + level, callback);
         };
 
         function save(params, callback) {
@@ -31,7 +32,22 @@
                 D06: md5.acceptance_card.file_name,
                 D07: md5.acceptance_report.file_path,
                 D08: md5.acceptance_data.file_path,
-                D09: md5.acceptance_card.file_path
+                D09: md5.acceptance_card.file_path,
+                D10: params.remark
+            }), callback);
+        };
+
+        function modify(params, callback) {
+            return svr.http('dt04/modify?json=' + angular.toJson({
+                D01: params.id,
+                DD2: params.station_name,
+                D04: md5.acceptance_report.file_name,
+                D05: md5.acceptance_data.file_name,
+                D06: md5.acceptance_card.file_name,
+                D07: md5.acceptance_report.file_path,
+                D08: md5.acceptance_data.file_path,
+                D09: md5.acceptance_card.file_path,
+                D10: params.remark
             }), callback);
         };
 

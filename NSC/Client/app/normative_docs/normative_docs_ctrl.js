@@ -62,6 +62,7 @@
                 });
             }
         };
+        vm.search.from_svr();
 
         vm.remove = function(id) {
             if (confirm('确定要删除吗？')) {

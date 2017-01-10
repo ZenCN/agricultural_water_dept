@@ -8,7 +8,7 @@
         <div class="input-group">
             <span class="input-group-addon">市级</span>
             <select class="form-control" ng-model="city.code" ng-options="unit.code as unit.name for unit in city.data" ng-change="city_change()">
-                <option value="">———————</option>
+                <option value="">所有市</option>
             </select>
         </div>
     </div>
@@ -16,7 +16,7 @@
         <div class="input-group">
             <span class="input-group-addon">县级</span>
             <select class="form-control" ng-model="county.code" ng-options="unit.code as unit.name for unit in county.data">
-                <option value="">———————</option>
+                <option value="">所有县</option>
             </select>
         </div>
     </div>
@@ -78,11 +78,11 @@
             <tr ng-repeat="_this in search.result">
                 <td>
                     <div class="btn-group btn-group-xs">
-                        <button type="button" class="btn btn-primary" ng-controller="modal_ctrl" ng-if="show('modify',_this)" ng-click="open('modify')">修改</button>
-                        <button type="button" class="btn btn-success" ng-if="show('send',_this)" ng-click="send(_this)">报送</button>
-                        <button type="button" class="btn btn-primary" ng-if="show('untread',_this)" ng-click="untread(_this)">退回</button>
-                        <button type="button" class="btn btn-success" ng-if="show('remove',_this)" ng-click="remove(_this)">删除</button>
-                        <button type="button" class="btn btn-primary" ng-if="show('record',_this)" ng-click="record(_this)">备案</button>
+                        <button type="button" class="btn btn-primary" ng-controller="modal_ctrl" ng-if="show('modify',_this)" ng-click="open('modify')">改</button>
+                        <button type="button" class="btn btn-success" ng-if="show('send',_this)" ng-click="send(_this)">报</button>
+                        <button type="button" class="btn btn-primary" ng-if="show('untread',_this)" ng-click="untread(_this)">退</button>
+                        <button type="button" class="btn btn-success" ng-if="show('remove',_this)" ng-click="remove(_this)">删</button>
+                        <button type="button" class="btn btn-primary" ng-if="show('record',_this)" ng-click="record(_this)">备</button>
                     </div>
                 </td>
                 <td>{{state_name(_this.D02)}}</td>

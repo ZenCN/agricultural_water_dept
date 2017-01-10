@@ -26,9 +26,14 @@ namespace NSC.Controllers.Web
             return Json(new TB04().Save(json), JsonRequestBehavior.AllowGet);
         }
 
-        public string Query(string city_code, string county_code, string station_name)
+        public string Modify(string json)
         {
-            return new TB04().Query(city_code, county_code, station_name);
+            return new TB04().Modify(json);
+        }
+
+        public string Query(string city_code, string county_code, string station_name, int level)
+        {
+            return new TB04().Query(city_code, county_code, station_name, level);
         }
 
         public void Download(string file_name, string file_url)
@@ -37,9 +42,9 @@ namespace NSC.Controllers.Web
             Response.WriteFile(AppDomain.CurrentDomain.BaseDirectory + "Zizo\\" + file_url);
         }
 
-        public string QueryStation(string key_words)
+        public string QueryStation(string key_words, int level)
         {
-            return new TB04().QueryStation(key_words);
+            return new TB04().QueryStation(key_words, level);
         }
 
         public string ChangeState(int id, string oper)

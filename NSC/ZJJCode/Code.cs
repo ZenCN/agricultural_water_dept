@@ -40,20 +40,93 @@ namespace NSC.ZJJCode
             }
         }
 
-        public string Query(string city_code, string county_code, string station_name)
+        public string Modify(string json)
+        {
+            using (var dbcon = db.Connection)
+            {
+                dbcon.Open();
+                using (var trans = dbcon.BeginTransaction())
+                {
+                    try
+                    {
+                        DT04 dt = JsonConvert.DeserializeObject<DT04>(json);
+
+                        DT04 old_dt = db.DT04.SingleOrDefault(t => t.D01 == dt.D01);
+                        old_dt.DD2 = dt.DD2;
+                        old_dt.D03 = DateTime.Now;
+                        old_dt.D10 = dt.D10;
+
+                        if (!string.IsNullOrEmpty(dt.D04))  //已修改过
+                        {
+                            var sx04 = db.SX04_SYS.SingleOrDefault(t => t.FILEURL.Contains(old_dt.D07));
+                            db.SX04_SYS.DeleteObject(sx04);
+                            //暂时不从Zizo文件夹里面删除文件
+
+                            old_dt.D04 = dt.D04;
+                            old_dt.D07 = dt.D07;
+                        }
+
+                        if (!string.IsNullOrEmpty(dt.D05))  //已修改过
+                        {
+                            var sx04 = db.SX04_SYS.SingleOrDefault(t => t.FILEURL.Contains(old_dt.D08));
+                            db.SX04_SYS.DeleteObject(sx04);
+                            //暂时不从Zizo文件夹里面删除文件
+
+                            old_dt.D05 = dt.D05;
+                            old_dt.D08 = dt.D08;
+                        }
+
+                        if (!string.IsNullOrEmpty(dt.D06))  //已修改过
+                        {
+                            var sx04 = db.SX04_SYS.SingleOrDefault(t => t.FILEURL.Contains(old_dt.D09));
+                            db.SX04_SYS.DeleteObject(sx04);
+                            //暂时不从Zizo文件夹里面删除文件
+
+                            old_dt.D06 = dt.D06;
+                            old_dt.D09 = dt.D09;
+                        }
+
+                        db.SaveChanges();
+                        trans.Commit();
+
+                        return "1";
+                    }
+                    catch (Exception ex)
+                    {
+                        trans.Rollback();
+                        return ex.Message;
+                    }
+                }
+            }
+        }
+
+        public string Query(string city_code, string county_code, string station_name, int level)
         {
             try
             {
                 IQueryable<DT04> query = db.DT04;
 
+                switch (level)
+                {
+                    case 2:
+                        query = db.DT04.Where(t => t.D02 == 4).AsQueryable();
+                        break;
+                    case 3:
+                        query = db.DT04.Where(t => t.D02 == 3).AsQueryable();
+                        break;
+                    case 4:
+                        query = db.DT04.Where(t => t.D02 == 1 || t.D02 == 2).AsQueryable();
+                        break;
+                }
+
                 if (!string.IsNullOrEmpty(county_code))  //市、县查询
                 {
-                    query = db.DT04.Where(t => t.DD1 == county_code).AsQueryable();
+                    query = query.Where(t => t.DD1 == county_code).AsQueryable();
                 }
                 else if (!string.IsNullOrEmpty(city_code))  //市查询
                 {
                     city_code = city_code.Substring(0, 4);
-                    query = db.DT04.Where(t => t.DD1.StartsWith(city_code)).AsQueryable();
+                    query = query.Where(t => t.DD1.StartsWith(city_code)).AsQueryable();
                 }
 
                 if (!string.IsNullOrEmpty(station_name))
@@ -64,7 +137,7 @@ namespace NSC.ZJJCode
                 var settings = getSerializerSettings();
                 settings.DateFormatString = "yyyy-MM-dd hh:mm";
 
-                return JsonConvert.SerializeObject(query.ToList(), settings);
+                return JsonConvert.SerializeObject(query.OrderByDescending(t => t.D03).ToList(), settings);
             }
             catch (Exception ex)
             {
@@ -72,13 +145,28 @@ namespace NSC.ZJJCode
             }
         }
 
-        public string QueryStation(string key_words)
+        public string QueryStation(string key_words, int level)
         {
             try
             {
-                var list = db.DT04.Where(t => t.DD2.Contains(key_words)).Select(t => t.DD2).ToList();
+                IQueryable<DT04> query = null;
 
-                return JsonConvert.SerializeObject(list, getSerializerSettings());
+                switch (level)
+                {
+                    case 2:
+                        query = db.DT04.Where(t => t.D02 == 4).AsQueryable();
+                        break;
+                    case 3:
+                        query = db.DT04.Where(t => t.D02 == 3).AsQueryable();
+                        break;
+                    case 4:
+                        query = db.DT04.Where(t => t.D02 == 1 || t.D02 == 2).AsQueryable();
+                        break;
+                }
+
+                query = query.Where(t => t.DD2.Contains(key_words)).AsQueryable();
+
+                return JsonConvert.SerializeObject(query.Select(t => t.DD2).ToList(), getSerializerSettings());
             }
             catch (Exception ex)
             {

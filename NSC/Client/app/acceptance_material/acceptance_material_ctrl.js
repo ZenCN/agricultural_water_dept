@@ -51,7 +51,7 @@
             vm.conservancy_station = item;
         };
         vm.get_stations = function(name) {
-            return acceptance_material_svr.get_station_names(name, function(response) {
+            return acceptance_material_svr.get_station_names(name, vm.user.level, function(response) {
                 vm.no_results = response.data.length == 0;
 
                 return response.data;
@@ -62,6 +62,7 @@
             result: [],
             from_svr: function() {
                 return acceptance_material_svr.search({
+                    level: vm.user.level,
                     city_code: vm.city.code,
                     county_code: vm.county.code,
                     station_name: vm.conservancy_station
@@ -70,6 +71,7 @@
                 });
             }
         };
+        vm.search.from_svr();
 
         vm.download = function(file_name, file_url) {
             window.location.href = 'dt04/download?file_name=' + file_name + '&file_url=' + file_url;
@@ -78,13 +80,13 @@
         vm.state_name = function(state) {
             switch (state) {
             case 1:
-                return '[县]未报送';
+                return '未报';
             case 2:
-                return '[市]已退回';
+                return '已退';
             case 3:
-                return '[县]已报送';
+                return '已报';
             case 4:
-                return '[市]已备案';
+                return '已备';
             }
         };
 
@@ -125,7 +127,7 @@
             if (confirm('报送后不能修改，确定报送？')) {
                 return acceptance_material_svr.operate(_this.D01, 'send', function(response) {
                     if (response.data > 0) {
-                        _this.D02 = response.data;
+                        vm.search.result.seek('D01', _this.D01, 'del');
                         msg('报送成功！');
                     } else {
                         throw msg(response.data);

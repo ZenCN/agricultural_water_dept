@@ -53,26 +53,33 @@
         };
 
         vm.validate = function () {
-            $('#login').addClass('logining');
+            if (isString(vm.password)) {
+                $('#login').addClass('logining');
 
-            login_svr.validate(vm[vm.selected.current].code, vm.password, function (response) {
-                if (response.data.retVal) {
+                login_svr.validate(vm[vm.selected.current].code, vm.password, function(response) {
+                    if (response.data > 0) {
 
-                    $r_scope.user = vm[vm.selected.current];
+                        $r_scope.user = vm[vm.selected.current];
 
-                    if ($r_scope.user.level > 2) {
-                        $r_scope.user.name = $r_scope.user.data.seek('code', $r_scope.user.code, 'name');
+                        if ($r_scope.user.level > 2) {
+                            $r_scope.user.name = $r_scope.user.data.seek('code', $r_scope.user.code, 'name');
 
-                        if ($r_scope.user.level == 4) {
-                            $.cookie('city_name', vm.city.data.seek('code', vm.city.code, 'name'));
+                            if ($r_scope.user.level == 4) {
+                                $.cookie('city_name', vm.city.data.seek('code', vm.city.code, 'name'));
+                            }
                         }
+
+                        delete $r_scope.user.data;
+
+                        $state.go('head.main');
+                    } else {
+                        $('#login').removeClass('logining');
+                        $('.error').html('密码错误');
                     }
-
-                    delete $r_scope.user.data;
-
-                    $state.go('head.main');
-                }
-            });
+                });
+            } else {
+                $('.error').html('请输入密码');
+            }
         };
 
         login_svr.load_units(vm.province.code, function (response) {
