@@ -178,9 +178,19 @@ namespace NSC.DYCode
     {
         private NSCEntities db = new NSCEntities();
 
-        public List<DFileInfo> DownLoad(int[] list)
+        public List<DFileInfo> DownLoad(int[] list, Table tb)
         {
-            return new NSCEntities().DT01.Where(t => t.D99 == 0 && list.Contains(t.D01)).Select(t => new DFileInfo { fileName = t.D02, fileUrl = t.D04 }).ToList();
+            switch (tb)
+            {
+                case Table.DT01:
+                    return db.DT01.Where(t => t.D99 == 0 && list.Contains(t.D01)).Select(t => new DFileInfo { fileName = t.D02, fileUrl = t.D04 }).ToList();
+                case Table.DT02:
+                    return db.DT02.Where(t => t.D99 == 0 && list.Contains(t.D01)).Select(t => new DFileInfo { fileName = t.D02, fileUrl = t.D04 }).ToList();
+                case Table.DT03:
+                    return db.DT03.Where(t => t.D99 == 0 && list.Contains(t.D01)).Select(t => new DFileInfo { fileName = t.D02, fileUrl = t.D04 }).ToList();
+                default:
+                    return null;
+            }
         }
 
         public object Serach(int year, string name, Table tb)

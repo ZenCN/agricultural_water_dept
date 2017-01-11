@@ -18,7 +18,11 @@
         <tr>
             <td class="text-right">水利站：</td>
             <td style="padding: 2px 0;">
-                <input type="text" class="form-control" ng-model="modal.station_name"/>
+                <div class="input-group" style="width: 100%;">
+                    <input type="text" ng-model="modal.station.name" class="form-control" typeahead-on-select="modal.station.selecting($item)"
+                           typeahead-loading="loadingLocations" typeahead="_this for _this in modal.station.query_names($viewValue)"/>
+                    <i ng-show="loadingLocations" class="input-group-addon glyphicon glyphicon-refresh"></i>
+                </div>
             </td>
         </tr>
         <tr>
@@ -42,7 +46,7 @@
         <tr>
             <td class="text-right">备注：</td>
             <td style="padding: 2px 0;">
-                <textarea class="form-control" style="max-width: 429px" ng-model="modal.remark"></textarea>
+                <textarea class="form-control" style="max-width: 429px" ng-maxlength="120" ng-model="modal.remark"></textarea>
             </td>
         </tr>
         <tr>

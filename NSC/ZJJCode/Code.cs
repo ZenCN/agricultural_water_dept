@@ -135,7 +135,7 @@ namespace NSC.ZJJCode
                 }
 
                 var settings = getSerializerSettings();
-                settings.DateFormatString = "yyyy-MM-dd hh:mm";
+                settings.DateFormatString = "yyyy-MM-dd";
 
                 return JsonConvert.SerializeObject(query.OrderByDescending(t => t.D03).ToList(), settings);
             }

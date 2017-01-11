@@ -11,6 +11,11 @@ body {
     overflow: hidden;
 }
 
+/*****angularjs 表单验证样式  *****/
+.ng-invalid{
+    border: 1px solid #EF5E5E;
+}
+
 table {
     text-align: center;
 }

@@ -23,7 +23,7 @@
         function save(params, callback) {
             return svr.http('dt04/save?json=' + angular.toJson({
                 DD1: params.county_code,
-                DD2: params.station_name,
+                DD2: params.station.name,
                 DD3: params.city_name,
                 DD4: params.county_name,
                 D02: 1,
@@ -40,7 +40,7 @@
         function modify(params, callback) {
             return svr.http('dt04/modify?json=' + angular.toJson({
                 D01: params.id,
-                DD2: params.station_name,
+                DD2: params.station.name,
                 D04: md5.acceptance_report.file_name,
                 D05: md5.acceptance_data.file_name,
                 D06: md5.acceptance_card.file_name,

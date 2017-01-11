@@ -42,16 +42,16 @@
         <table class="table table-striped table-bordered table-hover">
             <thead>
             <tr role="row">
-                <th>
+                <th ng-if="user.level > 2" style="{{search.result.length > 0 ? 'width:87px': 'width:inherit'}}">
 
                 </th>
-                <th>
+                <th style="width: 59px;">
                     状态
                 </th>
-                <th>
+                <th style="width: 59px;">
                     市级
                 </th>
-                <th>
+                <th style="width: 59px;">
                     县级
                 </th>
                 <th>
@@ -66,7 +66,7 @@
                 <th>
                     验收卡
                 </th>
-                <th>
+                <th style="width: 95px;">
                     上报日期
                 </th>
                 <th>
@@ -76,13 +76,13 @@
             </thead>
             <tbody>
             <tr ng-repeat="_this in search.result">
-                <td>
+                <td ng-if="user.level > 2">
                     <div class="btn-group btn-group-xs">
                         <button type="button" class="btn btn-primary" ng-controller="modal_ctrl" ng-if="show('modify',_this)" ng-click="open('modify')">改</button>
-                        <button type="button" class="btn btn-success" ng-if="show('send',_this)" ng-click="send(_this)">报</button>
-                        <button type="button" class="btn btn-primary" ng-if="show('untread',_this)" ng-click="untread(_this)">退</button>
-                        <button type="button" class="btn btn-success" ng-if="show('remove',_this)" ng-click="remove(_this)">删</button>
-                        <button type="button" class="btn btn-primary" ng-if="show('record',_this)" ng-click="record(_this)">备</button>
+                        <button type="button" class="btn btn-success" ng-if="show('send',_this)" ng-click="operate('send',_this)">报</button>
+                        <button type="button" class="btn btn-primary" ng-if="show('untread',_this)" ng-click="operate('untread',_this)">退</button>
+                        <button type="button" class="btn btn-success" ng-if="show('remove',_this)" ng-click="operate('remove',_this)">删</button>
+                        <button type="button" class="btn btn-primary" ng-if="show('record',_this)" ng-click="operate('record',_this)">备</button>
                     </div>
                 </td>
                 <td>{{state_name(_this.D02)}}</td>

@@ -74,10 +74,12 @@
                                 md5.validated = true;
                                 var arr = [], names = [];
                                 angular.forEach(response.data, function(val) {
-                                    $.each(md5.files, function() {
+                                    $.each(md5.files, function () {
                                         if (this.md5 == val) { //find and delete file
-                                            names.push(this.fileName);
-                                            arr.push(this);
+                                            if (!names.exist(this.fileName)) {
+                                                arr.push(this);
+                                                names.push(this.fileName);
+                                            }
                                             return false;
                                         }
                                     });

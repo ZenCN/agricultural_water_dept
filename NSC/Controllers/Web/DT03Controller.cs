@@ -53,7 +53,7 @@ namespace NSC.Controllers
 
         public void DownLoad(string list)
         {
-            new FileOper().DownLoad(new JavaScriptSerializer().Deserialize<List<DFileInfo>>(list), HttpContext);
+            new FileOper().DownLoad(new Other().DownLoad(new JavaScriptSerializer().Deserialize<int[]>(list), Table.DT03), HttpContext);
         }
 
         public JsonResult Search(int year, string name)

@@ -110,56 +110,34 @@
             }
         };
 
-        vm.remove = function(_this) {
-            if (confirm('删除后不可恢复，确定删除？')) {
-                return acceptance_material_svr.operate(_this.D01, 'remove', function(response) {
-                    if (response.data > 0) {
-                        vm.search.result.seek('D01', _this.D01, 'del');
-                        msg('删除成功！');
-                    } else {
-                        throw msg(response.data);
-                    }
-                });
-            }
-        };
+        vm.operate = function(type, _this) {
+            var text = undefined;
 
-        vm.send = function(_this) {
-            if (confirm('报送后不能修改，确定报送？')) {
-                return acceptance_material_svr.operate(_this.D01, 'send', function(response) {
-                    if (response.data > 0) {
-                        vm.search.result.seek('D01', _this.D01, 'del');
-                        msg('报送成功！');
-                    } else {
-                        throw msg(response.data);
-                    }
-                });
+            switch (type) {
+            case 'remove':
+                text = '删除后不可恢复，确定删除？';
+                break;
+            case 'send':
+                text = '报送后不能修改，确定报送？';
+                break;
+            case 'record':
+                text = '备案后不能修改，确定备案？';
+                break;
+            case 'untread':
+                text = '确定退回？';
+                break;
             }
-        };
 
-        vm.record = function(_this) {
-            if (confirm('备案后不能修改，确定备案？')) {
-                return acceptance_material_svr.operate(_this.D01, 'record', function(response) {
-                    if (response.data > 0) {
-                        _this.D02 = response.data;
-                        msg('备案成功！');
-                    } else {
-                        throw msg(response.data);
-                    }
-                });
-            }
-        };
-
-        vm.untread = function(_this) {
-            if (confirm('确定退回？')) {
+        if (confirm(text)) {
                 return acceptance_material_svr.operate(_this.D01, 'untread', function(response) {
                     if (response.data > 0) {
-                        _this.D02 = response.data;
-                        msg('退回成功！');
+                        vm.search.result.seek('D01', _this.D01, 'del');
+                        msg(text.substr(text.length - 3, 2) + '成功！');
                     } else {
                         throw msg(response.data);
                     }
                 });
             }
-        };
+        }
     }
 })();
