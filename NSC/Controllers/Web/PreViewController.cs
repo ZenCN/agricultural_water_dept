@@ -15,12 +15,37 @@ namespace Suya.Web.Apps.Areas.PMP.Controllers
     public class PreviewController : Controller
     {
         private string base_path = AppDomain.CurrentDomain.BaseDirectory +
-                                   System.Configuration.ConfigurationManager.AppSettings["dirPath"];
+                                   System.Configuration.ConfigurationManager.AppSettings["dirPath"] + "\\";
 
-        public string Preview(string name, string guid)
+        private NSCEntities db = new NSCEntities();
+
+        public string Index(int id, string table)
         {
-            string extension = name.Substring(name.LastIndexOf("."));
-            name = name.Substring(0, name.LastIndexOf(".") - 1);
+            string name = null;
+            string guid = null;
+            string extension = null;
+
+            switch (table)
+            {
+                case "dt01":
+                    DT01 dt01 = db.DT01.SingleOrDefault(t => t.D01 == id);
+                    name = dt01.D02;
+                    guid = dt01.D04.Replace("Zizo\\", "");
+                    break;
+                case "dt02":
+                    DT02 dt02 = db.DT02.SingleOrDefault(t => t.D01 == id);
+                    name = dt02.D02;
+                    guid = dt02.D04.Replace("Zizo\\", "");;
+                    break;
+                case "dt03":
+                    DT03 dt03 = db.DT03.SingleOrDefault(t => t.D01 == id);
+                    name = dt03.D02;
+                    guid = dt03.D04.Replace("Zizo\\", "");;
+                    break;
+            }
+
+            extension = name.Substring(name.LastIndexOf("."));
+            name = name.Substring(0, name.LastIndexOf("."));
 
 
             if (!System.IO.File.Exists(base_path + guid + extension))
@@ -28,34 +53,51 @@ namespace Suya.Web.Apps.Areas.PMP.Controllers
                 System.IO.File.Copy(base_path + guid, base_path + guid + extension);
             }
 
-
-
-
-            if (name.IndexOf(".doc") > 0)
+            switch (extension)
             {
-                Word(base_path + guid + extension, name);
+                case ".doc":
+                case ".docx":
+                    return Word(base_path + guid + extension, name);
+                default:
+                    return "";
             }
         }
 
         public string Word(string source, string name)
         {
+            string msg = null;
+            Microsoft.Office.Interop.Word.Application word_app = null;
+            string out_path = AppDomain.CurrentDomain.BaseDirectory + "PDF Files\\" + name + ".pdf";
+
             try
             {
-                string out_path = base_path + name + ".pdf";
+                if (!System.IO.File.Exists(out_path))
+                {
+                    word_app = new Microsoft.Office.Interop.Word.Application();
+                    var doc = word_app.Documents.Open(source);
 
-                var WordApp = new Microsoft.Office.Interop.Word.Application();
-                Microsoft.Office.Interop.Word.Document doc = WordApp.Documents.Open(source);
-
-                doc.SaveAs(out_path, Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatPDF);
-                WordApp.Visible = false;
-                WordApp.Quit();
-
-                return out_path;
+                    if (doc != null)
+                    {
+                        doc.SaveAs(out_path, Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatPDF);
+                        msg = name + ".pdf";
+                    }
+                    else
+                    {
+                        msg = "打开文件：" + source + " 失败！";
+                    }
+                }
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                msg = ex.Message;
             }
+            finally
+            {
+                word_app.Visible = false;
+                word_app.Quit();
+            }
+
+            return msg;
         }
     }
 }

@@ -79,8 +79,13 @@
             window.location.href = vm.cur_dt + '/download?list=[' + id + ']';
         };
 
-        vm.preview = function() {
-
+        vm.preview = function(id) {
+            normative_svr.preview_file(id, vm.cur_dt, function(response) {
+                if (isString(response.data)) {
+                    window.preview_file_url = response.data;
+                    window.open('client/bower_component/pdf-viewer/web/viewer.html');
+                }
+            });
         };
     }
 })();

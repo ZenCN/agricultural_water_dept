@@ -13,7 +13,8 @@
                 file_name: get_file_name,
                 file: get_file
             },
-            remove_file: remove_file
+            remove_file: remove_file,
+            preview_file: preview_file
         };
 
         function get_file_name(table_id, year, name, callback) {
@@ -27,6 +28,10 @@
 
         function remove_file(table_id, index, callback) {
             return svr.http(table_id + '/delete?index=' + index, callback);
+        }
+
+        function preview_file(id, cur_dt, callback) {
+            return svr.http('preview/index?id=' + id + '&table=' + cur_dt, callback)
         }
     }
 })();

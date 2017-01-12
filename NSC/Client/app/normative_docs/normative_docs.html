@@ -48,7 +48,7 @@
             <tbody>
             <tr ng-repeat="file in search.result">
                 <td>
-                    <i class="glyphicon td glyphicon-eye-open" title="预览" ng-click="preview()"></i>
+                    <i class="glyphicon td glyphicon-eye-open" title="预览" ng-click="preview(file.D01)"></i>
                     <i class="glyphicon td glyphicon-remove" title="删除" ng-if="user.level == 2" ng-click="remove(file.D01)" style="margin-left: 3px;"></i>
                 </td>
                 <td colspan="3" align="left">

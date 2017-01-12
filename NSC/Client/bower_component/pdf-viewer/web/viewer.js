@@ -1,4 +1,4 @@
-/* Copyright 2016 Mozilla Foundation
+﻿/* Copyright 2016 Mozilla Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 'use strict';
 
-var DEFAULT_URL = '../files/test.pdf';
+var DEFAULT_URL = '../files/' + window.opener.preview_file_url;
 
   var pdfjsWebLibs = {
     pdfjsWebPDFJS: window.pdfjsDistBuildPdf
