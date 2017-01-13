@@ -16,7 +16,7 @@
 
 'use strict';
 
-var DEFAULT_URL = '../files/' + window.opener.preview_file_url;
+var DEFAULT_URL = '../../../../PDF Files/' + window.opener.preview_file_url;
 
   var pdfjsWebLibs = {
     pdfjsWebPDFJS: window.pdfjsDistBuildPdf

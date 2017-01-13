@@ -193,7 +193,7 @@
     <Content Include="Client\app\app.service.js" />
     <Content Include="Client\bower_component\pdf-viewer\build\pdf.js" />
     <Content Include="Client\bower_component\pdf-viewer\build\pdf.worker.js" />
-    <Content Include="Client\bower_component\pdf-viewer\files\README.txt" />
+    <Content Include="Client\bower_component\pdf-viewer\README.txt" />
     <Content Include="Client\bower_component\pdf-viewer\web\compatibility.js" />
     <Content Include="Client\bower_component\pdf-viewer\web\debugger.js" />
     <Content Include="Client\bower_component\pdf-viewer\web\images\annotation-check.svg" />
@@ -382,6 +382,7 @@
     <Content Include="favicon.ico" />
     <Content Include="git_helper.txt" />
     <Content Include="Global.asax" />
+    <Content Include="PDF Files\README.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
