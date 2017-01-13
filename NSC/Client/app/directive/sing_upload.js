@@ -16,13 +16,14 @@
                     showRemove: false,
                     showUpload: false,
                     uploadAsync: false,
+                    allowedFileExtensions: ['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'pdf'],
                     layoutTemplates: {
                         btnBrowse: '<div tabindex="500" class="{css}"{status}>{icon}</div>',
                         caption: '<div class="form-control file-caption {class}">' +
                             '<div style="width:358px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" class="file-caption-name"></div>' +
                             '</div>'
                     }
-                }).on('filebatchselected', function(event, files) {
+                }).on('filebatchselected', function (event, files) {
                     if (files.length > 0) {
                         var reader = new FileReader();
                         reader.id = $attr.id;
@@ -52,13 +53,15 @@
                         };
                         reader.readAsArrayBuffer(files.the_first());
                     }
-                }).on('filebatchuploadsuccess', function(event, data) {
-                    md5[$attr.id] = JSON.parse(data.response);
+                }).on('filebatchuploadsuccess', function (event, data) {
+                    if (isString(data.response)) {
+                        md5[$attr.id] = JSON.parse(data.response);
 
-                    if (angular.isObject(md5[$attr.id])) {
-                        md5[$attr.id].uploaded = true;
-                    } else {
-                        throw msg(data.response);
+                        if (angular.isObject(md5[$attr.id])) {
+                            md5[$attr.id].uploaded = true;
+                        } else {
+                            throw msg(data.response);
+                        }
                     }
                 });
             });

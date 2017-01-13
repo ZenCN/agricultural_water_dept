@@ -128,7 +128,7 @@
                 break;
             }
 
-        if (confirm(text)) {
+            if (confirm(text)) {
                 return acceptance_material_svr.operate(_this.D01, 'untread', function(response) {
                     if (response.data > 0) {
                         vm.search.result.seek('D01', _this.D01, 'del');
@@ -138,6 +138,15 @@
                     }
                 });
             }
-        }
+        };
+
+        vm.preview = function (id, type) {
+            acceptance_material_svr.preview_file(id, type, function (response) {
+                if (isString(response.data)) {
+                    window.preview_file_url = response.data;
+                    window.open('client/bower_component/pdf-viewer/web/viewer.html');
+                }
+            });
+        };
     }
 })();

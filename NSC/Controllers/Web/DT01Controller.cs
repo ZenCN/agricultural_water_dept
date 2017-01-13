@@ -26,33 +26,40 @@ namespace NSC.Controllers
         {
             //return Json(new FileOper(new UpLoad_DataBase(Table.DT01, Session[ConstInfo.sys_session_info] as SX02_USER)).UpLoad(new JavaScriptSerializer().Deserialize<List<UFileInfo>>(list ?? string.Empty), files), JsonRequestBehavior.AllowGet);
 
-            //因前端暂时没有找到方法删除服务器上已经存在的附件，故只能在这里删除
-            var file_infos = new JavaScriptSerializer().Deserialize<List<UFileInfo>>(list ?? string.Empty);
-            if (file_infos != null)
+            if (files != null)
             {
-                file_infos.ForEach(info =>
+                //因前端暂时没有找到方法删除服务器上已经存在的附件，故只能在这里删除
+                var file_infos = new JavaScriptSerializer().Deserialize<List<UFileInfo>>(list ?? string.Empty);
+                if (file_infos != null)
                 {
-                    files.ForEach(file =>
+                    file_infos.ForEach(info =>
                     {
-                        if (info.fileName == file.FileName) //删除已存在的附件
+                        files.ForEach(file =>
                         {
-                            files.Remove(file);
-                        }
+                            if (info.fileName == file.FileName) //删除已存在的附件
+                            {
+                                files.Remove(file);
+                            }
+                        });
+
                     });
 
-                });
-
-                if (files.Count == 0)
-                {
-                    return null;
+                    if (files.Count == 0)
+                    {
+                        return null;
+                    }
                 }
-            }
 
-            return
-                Json(
-                    new FileOper(new UpLoad_DataBase(Table.DT01,
-                        Session[ConstInfo.sys_session_info] as SX02_USER))
-                        .UpLoad(file_infos, files), JsonRequestBehavior.AllowGet);
+                return
+                    Json(
+                        new FileOper(new UpLoad_DataBase(Table.DT01,
+                            Session[ConstInfo.sys_session_info] as SX02_USER))
+                            .UpLoad(file_infos, files), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public void DownLoad(string list)

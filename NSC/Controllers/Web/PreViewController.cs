@@ -18,11 +18,9 @@ namespace Suya.Web.Apps.Areas.PMP.Controllers
 
         private NSCEntities db = new NSCEntities();
 
-        public string Index(int id, string table)
+        public string Index(int id, string table, string type)
         {
-            string name = null;
-            string guid = null;
-            string extension = null;
+            string name = null, guid = null, extension, pdf_file;
 
             switch (table)
             {
@@ -41,63 +39,89 @@ namespace Suya.Web.Apps.Areas.PMP.Controllers
                     name = dt03.D02;
                     guid = dt03.D04.Replace("Zizo\\", "");;
                     break;
+                case "dt04":
+                    DT04 dt04 = db.DT04.SingleOrDefault(t => t.D01 == id);
+                    switch (type)
+                    {
+                        case "acept_report":
+                            name = dt04.D04;
+                            guid = dt04.D07;
+                            break;
+                        case "acept_data":
+                            name = dt04.D05;
+                            guid = dt04.D08;
+                            break;
+                        case "acept_card":
+                            name = dt04.D05;
+                            guid = dt04.D08;
+                            break;
+                    }
+                    break;
             }
 
             extension = name.Substring(name.LastIndexOf("."));
-            name = name.Substring(0, name.LastIndexOf("."));
 
+            //生成的pdf文件必须是以guid为文件名，否则遇到同名但文件类型不同的文件预览时会产生不一致现象
+            pdf_file = AppDomain.CurrentDomain.BaseDirectory + "PDF Files\\" + guid + ".pdf";
 
-            if (!System.IO.File.Exists(base_path + guid + extension))
+            if (System.IO.File.Exists(pdf_file)) //存在pdf，直接返回
             {
-                System.IO.File.Copy(base_path + guid, base_path + guid + extension);
+                return guid + ".pdf";
             }
-
-            switch (extension)
+            else
             {
-                case ".doc":
-                case ".docx":
-                    return Word(base_path + guid + extension, name);
-                case ".xls":
-                case ".xlsx":
-                    return Excel(base_path + guid + extension, name);
-                case ".ppt":
-                case ".pptx":
-                    return PowerPoint(base_path + guid + extension, name);
-                case ".pdf":
-                    System.IO.File.Copy(base_path + guid + extension,
-                        AppDomain.CurrentDomain.BaseDirectory + "PDF Files\\" + name + ".pdf");
-                    return name + ".pdf";
-                default:
-                    return "";
-            }
-        }
-
-        public string Word(string source, string name)
-        {
-            string msg = null;
-            Microsoft.Office.Interop.Word.Application word_app = null;
-            string out_path = AppDomain.CurrentDomain.BaseDirectory + "PDF Files\\" + name + ".pdf";
-
-            try
-            {
-                if (!System.IO.File.Exists(out_path))
+                if (extension != ".pdf")
                 {
-                    word_app = new Microsoft.Office.Interop.Word.Application();
-                    var doc = word_app.Documents.Open(source);
-
-                    if (doc != null)
+                    if (System.IO.File.Exists(base_path + guid))
                     {
-                        doc.SaveAs(out_path, Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatPDF);
-                        msg = name + ".pdf";
+                        switch (extension)
+                        {
+                            case ".doc":
+                            case ".docx":
+                                return Word(guid);
+                            case ".xls":
+                            case ".xlsx":
+                                return Excel(guid);
+                            case ".ppt":
+                            case ".pptx":
+                                return PowerPoint(guid);
+                            default:
+                                return "文件：" + name + " 不是Office文档";
+                        }
                     }
                     else
                     {
-                        msg = "打开文件：" + source + " 失败！";
+                        return "文件：" + base_path + guid + " 不存在！";
                     }
                 }
                 else
                 {
-                    msg = name + ".pdf";
+                    System.IO.File.Copy(base_path + guid, pdf_file);
+
+                    return guid + ".pdf";
+                }
+            }
+        }
+
+        public string Word(string guid)
+        {
+            string msg = null;
+            Microsoft.Office.Interop.Word.Application word_app = null;
+            string out_path = AppDomain.CurrentDomain.BaseDirectory + "PDF Files\\" + guid + ".pdf";
+
+            try
+            {
+                word_app = new Microsoft.Office.Interop.Word.Application();
+                var doc = word_app.Documents.Open(base_path + guid);
+
+                if (doc != null)
+                {
+                    doc.SaveAs(out_path, Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatPDF);
+                    msg = guid + ".pdf";
+                }
+                else
+                {
+                    msg = "Office Word 打开文件：" + base_path + guid + " 失败！";
                 }
             }
             catch (Exception ex)
@@ -116,33 +140,27 @@ namespace Suya.Web.Apps.Areas.PMP.Controllers
             return msg;
         }
 
-        public string Excel(string source, string name)
+        public string Excel(string guid)
         {
             string msg = null;
             Microsoft.Office.Interop.Excel.Application excel_app = null;
-            string out_path = AppDomain.CurrentDomain.BaseDirectory + "PDF Files\\" + name + ".pdf";
+            string out_path = AppDomain.CurrentDomain.BaseDirectory + "PDF Files\\" + guid + ".pdf";
 
             try
             {
-                if (!System.IO.File.Exists(out_path))
+                excel_app = new Microsoft.Office.Interop.Excel.Application();
+                //多个Sheet有问题
+                Microsoft.Office.Interop.Excel.Workbook book = excel_app.Workbooks.Open(base_path + guid);
+
+                if (book != null)
                 {
-                    excel_app = new Microsoft.Office.Interop.Excel.Application();
-                    Microsoft.Office.Interop.Excel.Workbook book = excel_app.Workbooks.Open(source);
-                    
-                    if (book != null)
-                    {
-                        Microsoft.Office.Interop.Excel.XlFileFormat xlFormatPDF = (Microsoft.Office.Interop.Excel.XlFileFormat)57;
-                        book.SaveAs(out_path, xlFormatPDF);
-                        msg = name + ".pdf";
-                    }
-                    else
-                    {
-                        msg = "打开文件：" + source + " 失败！";
-                    }
+                    Microsoft.Office.Interop.Excel.XlFileFormat xlFormatPDF = (Microsoft.Office.Interop.Excel.XlFileFormat)57;
+                    book.SaveAs(out_path, xlFormatPDF);
+                    msg = guid + ".pdf";
                 }
                 else
                 {
-                    msg = name + ".pdf";
+                    msg = "Office Excel 打开文件：" + base_path + guid + " 失败！";
                 }
             }
             catch (Exception ex)
@@ -161,38 +179,30 @@ namespace Suya.Web.Apps.Areas.PMP.Controllers
             return msg;
         }
 
-        public string PowerPoint(string source, string name)
+        public string PowerPoint(string guid)
         {
             string msg = null;
             Microsoft.Office.Interop.PowerPoint.Application powerpoint_app = null;
-            string out_path = AppDomain.CurrentDomain.BaseDirectory + "PDF Files\\" + name + ".pdf";
+            string out_path = AppDomain.CurrentDomain.BaseDirectory + "PDF Files\\" + guid + ".pdf";
 
             try
             {
-                if (!System.IO.File.Exists(out_path))
+                powerpoint_app = new Microsoft.Office.Interop.PowerPoint.Application();
+
+                Microsoft.Office.Interop.PowerPoint.Presentation presentation =
+                    powerpoint_app.Presentations.Open(base_path + guid,
+                        Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoFalse,
+                        Microsoft.Office.Core.MsoTriState.msoFalse);
+
+                if (presentation != null)
                 {
-                    powerpoint_app = new Microsoft.Office.Interop.PowerPoint.Application();
-
-
-                    Microsoft.Office.Interop.PowerPoint.Presentation presentation =
-                        powerpoint_app.Presentations.Open(source,
-                            Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoFalse,
-                            Microsoft.Office.Core.MsoTriState.msoFalse);
-
-                    if (presentation != null)
-                    {
-                        presentation.SaveAs(out_path, Microsoft.Office.Interop.PowerPoint.PpSaveAsFileType.ppSaveAsPDF);
-                        msg = name + ".pdf";
-                    }
-                    else
-                    {
-                        msg = "打开文件：" + source + " 失败！";
-                    }
+                    presentation.SaveAs(out_path, Microsoft.Office.Interop.PowerPoint.PpSaveAsFileType.ppSaveAsPDF);
+                    msg = guid + ".pdf";
                 }
                 else
                 {
-                    msg = name + ".pdf";
+                    msg = "Office PowerPoint 打开文件：" + base_path + guid + " 失败！";
                 }
             }
             catch (Exception ex)

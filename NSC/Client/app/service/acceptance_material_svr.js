@@ -13,7 +13,8 @@
             save: save,
             modify: modify,
             search: search,
-            operate: operate
+            operate: operate,
+            preview_file: preview_file
         };
 
         function get_station_names(key_words, level, callback) {
@@ -60,6 +61,10 @@
 
         function operate(id, action, callback) {
             return svr.http('dt04/changestate?id=' + id + '&oper=' + action, callback);
-        }
+        };
+
+        function preview_file(id, type, callback) {
+            return svr.http('preview/index?id=' + id + '&table=dt04&type=' + type, callback);
+        };
     }
 })();

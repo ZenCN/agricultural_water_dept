@@ -15,10 +15,18 @@ namespace NSC.Controllers.Web
     {
         public ActionResult UpLoad(string md5)
         {
+            var files = Request.Files;
 
-            return
-                Json(new FileOper(new UpLoad_DataBase(Table.DT04, Session[ConstInfo.sys_session_info] as SX02_USER))
+            if (files.Count > 0)
+            {
+                return
+                    Json(new FileOper(new UpLoad_DataBase(Table.DT04, Session[ConstInfo.sys_session_info] as SX02_USER))
                         .UpLoad(md5, Request.Files[0]), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public ActionResult Save(string json)
