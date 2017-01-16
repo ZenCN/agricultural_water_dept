@@ -38,7 +38,7 @@
             if (vm.modal.type == 'modify') {
                 var scope = $(event.srcElement || event.target).parent().scope();
                 vm.modal.id = scope._this.D01;
-                vm.modal.station_name = scope._this.DD2;
+                vm.modal.station.name = scope._this.DD2;
                 vm.modal.remark = scope._this.D10;
 
                 $timeout(function() {

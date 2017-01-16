@@ -129,7 +129,7 @@
             }
 
             if (confirm(text)) {
-                return acceptance_material_svr.operate(_this.D01, 'untread', function(response) {
+                return acceptance_material_svr.operate(_this.D01, type, function (response) {
                     if (response.data > 0) {
                         vm.search.result.seek('D01', _this.D01, 'del');
                         msg(text.substr(text.length - 3, 2) + '成功！');
