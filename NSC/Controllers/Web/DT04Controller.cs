@@ -39,9 +39,9 @@ namespace NSC.Controllers.Web
             return new TB04().Modify(json);
         }
 
-        public string Query(string city_code, string county_code, string station_name, int level)
+        public string Query(string city_code, string county_code, string station_name, int level, int state)
         {
-            return new TB04().Query(city_code, county_code, station_name, level);
+            return new TB04().Query(city_code, county_code, station_name, level, state);
         }
 
         public void Download(string file_name, string file_url)

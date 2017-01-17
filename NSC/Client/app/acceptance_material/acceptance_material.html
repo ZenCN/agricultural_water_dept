@@ -20,6 +20,20 @@
             </select>
         </div>
     </div>
+    <div class="col-xs-2" ng-if="user.level == 4">
+        <div class="input-group">
+            <span class="input-group-addon">状态</span>
+            <select class="form-control" ng-model="county.state.code" ng-options="state.code as state.name for state in county.state.data">
+            </select>
+        </div>
+    </div>
+    <div class="col-xs-2" ng-if="user.level == 3">
+        <div class="input-group">
+            <span class="input-group-addon">状态</span>
+            <select class="form-control" ng-model="city.state.code" ng-options="state.code as state.name for state in city.state.data">
+            </select>
+        </div>
+    </div>
     <div class="col-xs-3">
         <div class="input-group">
             <span class="input-group-addon">水利站</span>

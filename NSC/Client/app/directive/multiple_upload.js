@@ -136,6 +136,7 @@
                     }
                 }).on('filebatchuploadcomplete', function() {
                     $element.fileinput('refresh');
+                    $scope.search.from_svr();
                 });
             });
         }

@@ -100,7 +100,7 @@ namespace NSC.ZJJCode
             }
         }
 
-        public string Query(string city_code, string county_code, string station_name, int level)
+        public string Query(string city_code, string county_code, string station_name, int level, int state)
         {
             try
             {
@@ -112,10 +112,24 @@ namespace NSC.ZJJCode
                         query = db.DT04.Where(t => t.D02 == 4).AsQueryable();
                         break;
                     case 3:
-                        query = db.DT04.Where(t => t.D02 == 3).AsQueryable();
+                        if (state > 0)
+                        {
+                            query = db.DT04.Where(t => t.D02 == state).AsQueryable();
+                        }
+                        else  //state = 0
+                        {
+                            query = db.DT04.Where(t => t.D02 == 2 || t.D02 == 3 || t.D02 == 4).AsQueryable();
+                        }
                         break;
                     case 4:
-                        query = db.DT04.Where(t => t.D02 == 1 || t.D02 == 2).AsQueryable();
+                        if (state > 0)
+                        {
+                            query = db.DT04.Where(t => t.D02 == state).AsQueryable();
+                        }
+                        else  //state = 0
+                        {
+                            query = db.DT04.Where(t => t.D02 == 1 || t.D02 == 2 || t.D02 == 3).AsQueryable();
+                        }
                         break;
                 }
 

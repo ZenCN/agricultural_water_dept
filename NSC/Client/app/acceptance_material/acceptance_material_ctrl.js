@@ -11,12 +11,30 @@
 
         vm.city = {
             code: undefined,
-            data: []
+            data: [],
+            state: {
+                data: [
+                    { name: '所有', code: 0 },
+                    { name: '未备', code: 3 },
+                    { name: '已备', code: 4 },
+                    { name: '已退', code: 2 }
+                ],
+                code: 3
+            }
         };
 
         vm.county = {
             code: undefined,
-            data: []
+            data: [],
+            state: {
+                data: [
+                    { name: '所有', code: 0 },
+                    { name: '未报', code: 1 },
+                    { name: '已报', code: 3 },
+                    { name: '已退', code: 2 }
+                ],
+                code: 1
+            }
         };
 
         switch (parseInt(vm.user.level)) {
@@ -60,9 +78,23 @@
 
         vm.search = {
             result: [],
-            from_svr: function() {
+            from_svr: function () {
+                var state = undefined;
+                switch (parseInt(vm.user.level)) {
+                    case 2:
+                        state = 4;
+                        break;
+                    case 3:
+                        state = vm.city.state.code;
+                        break;
+                    case 4:
+                        state = vm.county.state.code;
+                        break;
+                }
+
                 return acceptance_material_svr.search({
                     level: vm.user.level,
+                    state: state,
                     city_code: vm.city.code,
                     county_code: vm.county.code,
                     station_name: vm.conservancy_station
@@ -131,7 +163,11 @@
             if (confirm(text)) {
                 return acceptance_material_svr.operate(_this.D01, type, function (response) {
                     if (response.data > 0) {
-                        vm.search.result.seek('D01', _this.D01, 'del');
+                        if (type == 'remove') {
+                            vm.search.result.seek('D01', _this.D01, 'del');
+                        } else {
+                            vm.search.from_svr();
+                        }
                         msg(text.substr(text.length - 3, 2) + '成功！');
                     } else {
                         throw msg(response.data);
