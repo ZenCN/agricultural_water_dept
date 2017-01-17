@@ -128,7 +128,7 @@ namespace NSC.ZJJCode
                         }
                         else  //state = 0
                         {
-                            query = db.DT04.Where(t => t.D02 == 1 || t.D02 == 2 || t.D02 == 3).AsQueryable();
+                            query = db.DT04.Where(t => t.D02 == 1 || t.D02 == 2 || t.D02 == 3 || t.D02 == 4).AsQueryable();
                         }
                         break;
                 }

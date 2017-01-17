@@ -76,7 +76,7 @@ Date.convert = function(val) {
         d = '0' + d;
     }
 
-    return dt.getFullYear() + "-" + m + "-" + d + ' ' + dt.getHours();
+    return dt.getFullYear() + "-" + m + "-" + d;
 };
 
 //---------------------string---------------------

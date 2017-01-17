@@ -31,7 +31,8 @@
                     { name: '所有', code: 0 },
                     { name: '未报', code: 1 },
                     { name: '已报', code: 3 },
-                    { name: '已退', code: 2 }
+                    { name: '已退', code: 2 },
+                    { name: '已备', code: 4 }
                 ],
                 code: 1
             }
