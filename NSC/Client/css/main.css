@@ -57,4 +57,5 @@
     filter: alpha(opacity=85);
     -moz-opacity: 0.85;
     opacity: 0.85;
+    overflow: auto;
 }
