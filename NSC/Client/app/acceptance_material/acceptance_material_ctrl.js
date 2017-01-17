@@ -48,6 +48,7 @@
             login_svr.load_units(vm.user.code, function(response) {
                 vm.county.data = response.data;
             });
+            vm.city.code = vm.user.code;
             break;
         case 4:
             vm.county.code = vm.user.code;
